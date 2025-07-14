@@ -57,3 +57,7 @@ For a full list of supported features, detailed descriptions, and compatibility 
 
 ```bash
 Install-Package PLCcomForS7
+```
+##### Trademark Information: #####
+All product names, company names, and trademarks referenced in this repository are trademarks or registered trademarks of their respective owners. There is no affiliation between the mentioned trademarks or their owners and Indi.An GmbH. Any mention of trademarks is solely for reference purposes regarding usage and application.
+
