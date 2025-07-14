@@ -1,0 +1,70 @@
+# Build-Ordner
+bin/
+obj/
+
+# VS-Code
+.vscode/
+
+# Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio-Cache & Logs
+.vs/
+*.VC.db
+*.VC.VC.opendb
+
+# NuGet-Pakete
+*.nupkg
+# Paket-Ordner, benutzt von nuget restore
+packages/
+# NuGet Config-Dateien
+*.nupkg.metadata
+project.lock.json
+
+# Rider
+.idea/
+*.sln.iml
+
+# DotCover
+*.dotCover
+
+# Test-Ergebnisse
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Build-Logs
+*.log
+
+# Sonstige temporäre Dateien
+*.dbmdl
+*.bak
+*.backup
+*.cache
+*.ilk
+*.pdb
+*.obj
+*.pch
+*.idb
+*.tlog
+*.lastbuildstate
+*.log
+
+# Publish-Ordner
+publish/
+wwwroot/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# Azure DevOps Pipeline Artifacts
+*.artifact
+
+# Benutzerdefinierte Settings
+*.env
+.env.local
