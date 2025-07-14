@@ -42,7 +42,7 @@ For a full list of supported features, detailed descriptions, and compatibility 
 - All examples provided in this repository are released under the **MIT License**. You are free to use, modify, and distribute these examples according to the terms of the MIT license.
 
 **PLCcom Library License:**
-- **PLCcom for S7** itself is proprietary software and is **NOT** included under the MIT license. To use the PLCcom library in your own projects, you must acquire an appropriate license. More information about purchasing a license can be found [here](https://www.indi-an.com/en/plccom/for-s7/fors7-overview/).
+- **PLCcom for S7** itself is proprietary software and is **NOT** included under the MIT license. To use the PLCcom library in your own projects, you must acquire an appropriate license and accept the EULA for the PLCcom for S7 library. More information about purchasing a license can be found [here](https://www.indi-an.com/en/plccom/for-s7/fors7-overview/).
 
 **Test License:**
 - For execution, a test license is required. Without license information, the library will work for 15 minutes. If a longer test period is desired, users can request an extended test license by sending a brief email to [sales@indi-an.com](mailto:sales@indi-an.com).
