@@ -1,0 +1,817 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnAbort_Text" xml:space="preserve">
+    <value>Abbruch</value>
+  </data>
+  <data name="btnAcceptRequest_Text" xml:space="preserve">
+    <value>Request erzeugen</value>
+  </data>
+  <data name="btnAccept_Text" xml:space="preserve">
+    <value>übernehme
+Connector</value>
+  </data>
+  <data name="btnAddConnector_Text" xml:space="preserve">
+    <value>Connector
+hinzufügen</value>
+  </data>
+  <data name="btnAddRequest_Text" xml:space="preserve">
+    <value>Requests hinzufügen</value>
+  </data>
+  <data name="btnBackup_Block_Text" xml:space="preserve">
+    <value>lese Block</value>
+  </data>
+  <data name="btnBasicInfo_Text" xml:space="preserve">
+    <value>lese SPS Info</value>
+  </data>
+  <data name="btnBlockFunctions_Text" xml:space="preserve">
+    <value>Block-
+funktionen</value>
+  </data>
+  <data name="btnBlockLen_Text" xml:space="preserve">
+    <value>lese Blocklänge</value>
+  </data>
+  <data name="btnBlockList_Text" xml:space="preserve">
+    <value>lese Blockliste</value>
+  </data>
+  <data name="btnClose_Text" xml:space="preserve">
+    <value>schliessen</value>
+  </data>
+  <data name="btnConnect_Text" xml:space="preserve">
+    <value>SPS Verbinden</value>
+  </data>
+  <data name="btnCPUMode_Text" xml:space="preserve">
+    <value>lese CPU Modus</value>
+  </data>
+  <data name="btnDataServer_Text" xml:space="preserve">
+    <value>PLCcom
+Dataserver</value>
+  </data>
+  <data name="btnDeleteBlock_Text" xml:space="preserve">
+    <value>lösche Block</value>
+  </data>
+  <data name="btnDiagnoseBuffer_Text" xml:space="preserve">
+    <value>Diagnose-
+daten</value>
+  </data>
+  <data name="btnDisconnect_Text" xml:space="preserve">
+    <value>SPS Trennen</value>
+  </data>
+  <data name="btnEditConnectionSettings_Text" xml:space="preserve">
+    <value>Einstellung ändern</value>
+  </data>
+  <data name="btnExecute_Text" xml:space="preserve">
+    <value>Funktion ausführen</value>
+  </data>
+  <data name="btnGetPLCTime_Text" xml:space="preserve">
+    <value>lese SPS Uhr</value>
+  </data>
+  <data name="btnLoadRequests_Text" xml:space="preserve">
+    <value>Lade Requests</value>
+  </data>
+  <data name="btnLoggingSettings_Text" xml:space="preserve">
+    <value>Log-
+Konnektor</value>
+  </data>
+  <data name="btnOptimizedReadWrite_Text" xml:space="preserve">
+    <value>optimierter
+Zugriff</value>
+  </data>
+  <data name="btnOtherFunctions_Text" xml:space="preserve">
+    <value>weitere Funktionen</value>
+  </data>
+  <data name="btnPLCLEDInfo_Text" xml:space="preserve">
+    <value>lese LED info</value>
+  </data>
+  <data name="btnreadBCD_Text" xml:space="preserve">
+    <value>lese BCD</value>
+  </data>
+  <data name="btnreadBit_Text" xml:space="preserve">
+    <value>lese Bit</value>
+  </data>
+  <data name="btnreadBuffer_Text" xml:space="preserve">
+    <value>lese Rohdaten</value>
+  </data>
+  <data name="btnReadBytes_Text" xml:space="preserve">
+    <value>lese Byte</value>
+  </data>
+  <data name="btnReadCollection_Text" xml:space="preserve">
+    <value>lese Collection</value>
+  </data>
+  <data name="btnreadDInt_Text" xml:space="preserve">
+    <value>lese DInt</value>
+  </data>
+  <data name="btnreadDT_Text" xml:space="preserve">
+    <value>lese Datetime</value>
+  </data>
+  <data name="btnreadDWORD_Text" xml:space="preserve">
+    <value>lese DWord</value>
+  </data>
+  <data name="btnReadExample_Text" xml:space="preserve">
+    <value>Lese-
+funktionen</value>
+  </data>
+  <data name="btnreadInt_Text" xml:space="preserve">
+    <value>lese Int</value>
+  </data>
+  <data name="btnreadReal_Text" xml:space="preserve">
+    <value>lese Real</value>
+  </data>
+  <data name="btnreadS5Time_Text" xml:space="preserve">
+    <value>lese S5Time</value>
+  </data>
+  <data name="btnreadS7_String_Text" xml:space="preserve">
+    <value>lese S7String</value>
+  </data>
+  <data name="btnReadSSL_SZL_Text" xml:space="preserve">
+    <value>lese SZL</value>
+  </data>
+  <data name="btnreadString_Text" xml:space="preserve">
+    <value>lese String</value>
+  </data>
+  <data name="btnreadWord_Text" xml:space="preserve">
+    <value>lese Word</value>
+  </data>
+  <data name="btnReadWriteFunctions_Text" xml:space="preserve">
+    <value>einfacher Zugriff</value>
+  </data>
+  <data name="btnReject_Text" xml:space="preserve">
+    <value>verwerfe
+Connector</value>
+  </data>
+  <data name="btnRemoveConnector_Text" xml:space="preserve">
+    <value>Connector
+entfernen</value>
+  </data>
+  <data name="btnRemoveRequest_Text" xml:space="preserve">
+    <value>Requests entfernen</value>
+  </data>
+  <data name="btnRestore_Block_Text" xml:space="preserve">
+    <value>schreibe Block</value>
+  </data>
+  <data name="btnSaveConnectionSettings_Text" xml:space="preserve">
+    <value>Einstellung speichern</value>
+  </data>
+  <data name="btnSaveLogtoClipboard_Text" xml:space="preserve">
+    <value> Zwischen-ablage</value>
+  </data>
+  <data name="btnSaveLogtoFile_Text" xml:space="preserve">
+    <value>Speichere in Datei</value>
+  </data>
+  <data name="btnSaveRequests_Text" xml:space="preserve">
+    <value>Speichere Requests</value>
+  </data>
+  <data name="btnsendPW_Text" xml:space="preserve">
+    <value>sende Password</value>
+  </data>
+  <data name="btnsetPLCTime_Text" xml:space="preserve">
+    <value>setze SPS Uhr</value>
+  </data>
+  <data name="btnStartPLC_Text" xml:space="preserve">
+    <value>Start SPS</value>
+  </data>
+  <data name="btnStartServer_Text" xml:space="preserve">
+    <value>Start
+Dataserver</value>
+  </data>
+  <data name="btnStopPLC_Text" xml:space="preserve">
+    <value>Stop SPS</value>
+  </data>
+  <data name="btnStopServer_Text" xml:space="preserve">
+    <value>Stop
+Dataserver</value>
+  </data>
+  <data name="btnwriteBCD_Text" xml:space="preserve">
+    <value>schreibe BCD</value>
+  </data>
+  <data name="btnwriteBit_Text" xml:space="preserve">
+    <value>schreibe Bit</value>
+  </data>
+  <data name="btnwriteBuffer_Text" xml:space="preserve">
+    <value>schreibe Rohdaten</value>
+  </data>
+  <data name="btnwriteByte_Text" xml:space="preserve">
+    <value>schreibe Byte</value>
+  </data>
+  <data name="btnwriteDInt_Text" xml:space="preserve">
+    <value>schreibe DInt</value>
+  </data>
+  <data name="btnwriteDT_Text" xml:space="preserve">
+    <value>schreibe Datetime</value>
+  </data>
+  <data name="btnwriteDWord_Text" xml:space="preserve">
+    <value>schreibe DWord</value>
+  </data>
+  <data name="btnWriteExample_Text" xml:space="preserve">
+    <value>Schreib-
+funktionen</value>
+  </data>
+  <data name="btnwriteInt_Text" xml:space="preserve">
+    <value>schreibe Int</value>
+  </data>
+  <data name="btnwriteReal_Text" xml:space="preserve">
+    <value>schreibe Real</value>
+  </data>
+  <data name="btnwriteS5Time_Text" xml:space="preserve">
+    <value>schreibe S5Time</value>
+  </data>
+  <data name="btnwriteS7_String_Text" xml:space="preserve">
+    <value>schreibe S7String</value>
+  </data>
+  <data name="btnwriteString_Text" xml:space="preserve">
+    <value>schreibe String</value>
+  </data>
+  <data name="btnwriteWord_Text" xml:space="preserve">
+    <value>schreibe Word</value>
+  </data>
+  <data name="chkAllowMultipleBits_Text" xml:space="preserve">
+    <value>erlaube schreiben von multiplen Bits</value>
+  </data>
+  <data name="chkAsyncConnect_TextAsync" xml:space="preserve">
+    <value>asynchron
+verbinden</value>
+  </data>
+  <data name="chkIsWriteImageActive_Text" xml:space="preserve">
+    <value>Abbild schreiben</value>
+  </data>
+  <data name="chkIsWriteLogActive_Text" xml:space="preserve">
+    <value>Log-Ausgabe aktiv</value>
+  </data>
+  <data name="chkOptimized_Text" xml:space="preserve">
+    <value>lese mit Optimize Mode 'On'</value>
+  </data>
+  <data name="chkSingleValue_Text" xml:space="preserve">
+    <value>Einzelwert</value>
+  </data>
+  <data name="connect_unsuccessful" xml:space="preserve">
+    <value>Verbindung nicht erfolgreich! </value>
+  </data>
+  <data name="Continue_Question" xml:space="preserve">
+    <value>Wollen Sie fortfahren?</value>
+  </data>
+  <data name="Continue_Warning_Delete" xml:space="preserve">
+    <value>Wichtig: Wenn Sie fortfahren wird der Zielblock ohne weitere Nachfrage gelöscht!</value>
+  </data>
+  <data name="Continue_Warning_Restore" xml:space="preserve">
+    <value>Wichtig: Wenn Sie fortfahren wird der Zielblock beschrieben. Existierende Blöcke werden ohne weitere Nachfrage überschrieben!</value>
+  </data>
+  <data name="Continue_Warning_SetTime" xml:space="preserve">
+    <value>Wichtig: Wenn Sie fortfahren wird die Uhrzeit der SPS ohne weitere Nachfrage überschrieben</value>
+  </data>
+  <data name="Continue_Warning_Start" xml:space="preserve">
+    <value>Wichtig: Wenn Sie fortfahren wird die SPS ohne weitere Nachfrage gestartet!</value>
+  </data>
+  <data name="Continue_Warning_Stop" xml:space="preserve">
+    <value>Wichtig: Wenn Sie fortfahren wird die SPS ohne weitere Nachfrage gestopt!</value>
+  </data>
+  <data name="Continue_Warning_Write" xml:space="preserve">
+    <value>Wichtig: Wenn Sie fortfahren wird die abgegebene Adresse beschrieben. Existierende Daten werden ohne weitere Nachfrage überschrieben!</value>
+  </data>
+  <data name="grbConnection_Text" xml:space="preserve">
+    <value>Verbindungseinstellungen</value>
+  </data>
+  <data name="grbDatabaseConnectorSettings_Text" xml:space="preserve">
+    <value>Datenbank Connector Einstellungen</value>
+  </data>
+  <data name="grbFilesystemConnectorSettings_Text" xml:space="preserve">
+    <value>Filesystem Connector Einstellungen</value>
+  </data>
+  <data name="grpAccess_Text" xml:space="preserve">
+    <value>Zugriff</value>
+  </data>
+  <data name="grpAction_Text" xml:space="preserve">
+    <value>Aktion</value>
+  </data>
+  <data name="grpAction_Text1" xml:space="preserve">
+    <value>Aktion</value>
+  </data>
+  <data name="grpAddress_Text" xml:space="preserve">
+    <value>Requests definieren</value>
+  </data>
+  <data name="grpAdress_Text" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="grpResult_Text" xml:space="preserve">
+    <value>Ergebnis</value>
+  </data>
+  <data name="Hint_Read_OptimizationMode_Overview" xml:space="preserve">
+    <value>Erklärung des Lese-Optimierungs-Modus</value>
+  </data>
+  <data name="Hint_Read_OptimizationMode_Text" xml:space="preserve">
+    <value>NONE: 
+Keine Optimierung, alle Read Requests werden nacheinander gelesen. Sicher aber langsam.
+
+CROSS_AREAS: 
+Im CROSS_AREAS Modus werden die Lese- Anforderungen bereichsübergreifend zusammengeführt. Vorteil: Fragmentierte Bereiche (z. B. Daten über mehrere Datenblöcke) können gleichzeitig gelesen und geschrieben werden
+
+COMBINE_AREAS: 
+Im COMBINE_AREAS Modus werden Lese-Anforderungen aus denselben Bereichen kombiniert. Vorteil: Schneller und performanter Zugriff auf Daten derselben Bereiche (z. B. Daten in demselben Datenblock)
+
+AUTO: 
+PLCcom wählt automatisch die beste Optimierungsmethode für die Read Requests aus. Es werden nur die minimal erforderlichen SPS-Zugriffe durchgeführt.
+Nur in der Expert Edition verfügbar</value>
+  </data>
+  <data name="Hint_Write_OptimizationMode_Overview" xml:space="preserve">
+    <value>Erklärung des Schreib-Optimierungs-Modus</value>
+  </data>
+  <data name="Hint_Write_OptimizationMode_Text" xml:space="preserve">
+    <value>NONE: 
+Keine Optimierung, alle Write Requests werden nacheinander geschrieben. Sicher aber langsam.
+
+CROSS_AREAS: 
+Im CROSS_AREAS Modus werden die Schreib- Anforderungen bereichsübergreifend zusammengeführt. Vorteil: Fragmentierte Bereiche (z. B. Daten über mehrere Datenblöcke) können gleichzeitig gelesen und geschrieben werden</value>
+  </data>
+  <data name="Important_question" xml:space="preserve">
+    <value>Achtung</value>
+  </data>
+  <data name="lblAutoConnect2" xml:space="preserve">
+    <value>autom. verbinden</value>
+  </data>
+  <data name="lblBaudrate_Text" xml:space="preserve">
+    <value>Baudrate</value>
+  </data>
+  <data name="lblBit_Text" xml:space="preserve">
+    <value>Bit (nur für Bit-Operationen)</value>
+  </data>
+  <data name="lblBusAdressLocal_Text" xml:space="preserve">
+    <value>Bus-Adresse-Local</value>
+  </data>
+  <data name="lblBusAdressPLC_Text" xml:space="preserve">
+    <value>Bus-Adresse-SPS</value>
+  </data>
+  <data name="lblBusSpeed_Text" xml:space="preserve">
+    <value>Busspeed</value>
+  </data>
+  <data name="lblConnectionMessage_Text" xml:space="preserve">
+    <value>PLCcom unterstützt sämtliche Datenbankverbindungen die vom DbConnection- Object abstammen.
+PLCcom wurde getestet mit:
+=&gt; Oracle
+=&gt; MS SQL-Server
+=&gt; MySQL
+=&gt; PostgresSQL
+=&gt; OdbcConnection
+=&gt; OleConnection
+=&gt; Firebird
+=&gt; SQLITE</value>
+  </data>
+  <data name="lblConnectionString_Text" xml:space="preserve">
+    <value>MSSQL- Connectionstring</value>
+  </data>
+  <data name="lblConnectionType_Text" xml:space="preserve">
+    <value>Verbindungstyp</value>
+  </data>
+  <data name="lblConnectorName_Text" xml:space="preserve">
+    <value>Name des Connectors</value>
+  </data>
+  <data name="lblConnectorType_Text" xml:space="preserve">
+    <value>Type des Connectors</value>
+  </data>
+  <data name="lblDataType_Text" xml:space="preserve">
+    <value>Datentyp</value>
+  </data>
+  <data name="lblDB_Text" xml:space="preserve">
+    <value>DB (nur für Bereich DB, ansonsten 0)</value>
+  </data>
+  <data name="lblEncryptionPassword_Text" xml:space="preserve">
+    <value>Verschlüsselungspasswort
+(leer = k. Verschlüsselung)</value>
+  </data>
+  <data name="lblFolderName_Text" xml:space="preserve">
+    <value>Ziel-Ordner</value>
+  </data>
+  <data name="lblFunction_Text" xml:space="preserve">
+    <value>Funktion</value>
+  </data>
+  <data name="lblImageOutputFormat_Text" xml:space="preserve">
+    <value>Abbild-Ausgabe-Format</value>
+  </data>
+  <data name="lblInfoConnectionString_Text" xml:space="preserve">
+    <value>&lt;= Der Connectionstring zur Datenbankverbindung. 
+      In diesem Beispiel nur MS SQL-Server</value>
+  </data>
+  <data name="lblInfoConnectorName_Text" xml:space="preserve">
+    <value>&lt;= Der gewünschte Name des Connectors. Der Name muss eindeutig sein!</value>
+  </data>
+  <data name="lblInfoCreateListener_Text" xml:space="preserve">
+    <value>Mit Logging-Connectoren können Daten der gelesenen Variablen im Filesystem oder in einer SQL-Datenbank für die weitere Verwendung abgelegt werden. 
+
+Aufgrund nicht mitgelieferter Datenbankprovider werden in diesem Beispiel nur Filesystem- und 
+SQL-Server- Verbindungen angeboten.</value>
+  </data>
+  <data name="lblInfoEncryptionPassword_Text" xml:space="preserve">
+    <value>&lt;= Wenn Sie ein Verschlüsselungspasswort eingeben, werden die Daten verschlüsselt 
+     abgelegt. Sie können die Daten mit dem Entschlüsselungstool wieder einlesen.</value>
+  </data>
+  <data name="lblInfoFolderName_Text" xml:space="preserve">
+    <value>&lt;= Der gewünschte Ausgabe-Ordner für die Logfiles und das Datenabbild.</value>
+  </data>
+  <data name="lblInfoImageOutputFormat_Text" xml:space="preserve">
+    <value>&lt;= Sie können sich die Daten für das Abbild im flachen .dat-Format (csv) 
+     oder im .xml-Format ausgeben lassen</value>
+  </data>
+  <data name="lblInfoIsWriteImageActiveDB_Text" xml:space="preserve">
+    <value>&lt;= Ermöglicht Ihnen das Schreiben des aktuellen Server-Daten-Abbildes in eine 
+Datenbanktabelle zu Ihrer weiteren Verwendung</value>
+  </data>
+  <data name="lblInfoIsWriteImageActive_Text" xml:space="preserve">
+    <value>&lt;= Ermöglicht Ihnen das Schreiben des aktuellen Server-Daten-Abbildes in das 
+      Filesystem zu Ihrer weiteren Verwendung</value>
+  </data>
+  <data name="lblInfoIsWriteLogActiveDB_Text" xml:space="preserve">
+    <value>&lt;= Schaltet die Datenausgabe in eine Log-Archiv-Tabelle ein oder aus</value>
+  </data>
+  <data name="lblInfoIsWriteLogActive_Text" xml:space="preserve">
+    <value>&lt;= Schaltet die Datenausgabe in ein Log-Archiv ein oder aus</value>
+  </data>
+  <data name="lblInfoMaxAgeHours_Text" xml:space="preserve">
+    <value>&lt;= Sie können das maximale Alter von Dateien einschränken. 
+     Bei Überschreitung des Wertes werden alten Dateien automatisch gelöscht. -1 = deaktiviert.</value>
+  </data>
+  <data name="lblInfoMaxFileSizeMB_Text" xml:space="preserve">
+    <value>&lt;= Sie können das maximale Größe von Dateien einschränken. 
+     Bei Überschreitung des Wertes werden alten Dateien automatisch gelöscht. -1 = deaktiviert.</value>
+  </data>
+  <data name="lblInfoMaxNumberOfLogFiles_Text" xml:space="preserve">
+    <value>&lt;= Sie können die maximale Anzahl von Dateien einschränken. 
+     Bei Überschreitung des Wertes werden alten Dateien automatisch gelöscht. -1 = deaktiviert.</value>
+  </data>
+  <data name="lblIsWriteImageActiveDB_Text" xml:space="preserve">
+    <value>&lt;= Ermöglicht Ihnen das Schreiben des aktuellen Server-Daten-Abbildes in eine 
+     Datenbanktabelle zu Ihrer weiteren Verwendung</value>
+  </data>
+  <data name="lblLanguage_Text" xml:space="preserve">
+    <value>Sprache / Language</value>
+  </data>
+  <data name="lblLength_Text" xml:space="preserve">
+    <value>Anzahl</value>
+  </data>
+  <data name="lblLocalPort_Text" xml:space="preserve">
+    <value>Local Port (default = 0)</value>
+  </data>
+  <data name="lblLog_Text" xml:space="preserve">
+    <value>Diagnose-Ausgabe</value>
+  </data>
+  <data name="lblMaxAgeHours_Text" xml:space="preserve">
+    <value>max Alter in Stunden</value>
+  </data>
+  <data name="lblMaxFileSizeMB_Text" xml:space="preserve">
+    <value>max Dateigrösse in MB</value>
+  </data>
+  <data name="lblmaxIdleTime_Text" xml:space="preserve">
+    <value>max. Ruhezeit bis zur Trennung</value>
+  </data>
+  <data name="lblMaxNumberOfLogFiles_Text" xml:space="preserve">
+    <value>max Anzahl Log-Dateien</value>
+  </data>
+  <data name="lblMessage_Text" xml:space="preserve">
+    <value>Meldung</value>
+  </data>
+  <data name="lblMode_Text" xml:space="preserve">
+    <value>Lese-/Schreib- Modus</value>
+  </data>
+  <data name="lblMultipleValues_Text" xml:space="preserve">
+    <value>Bitte geben Sie die Werte ein und schliessen mit Enter ab:</value>
+  </data>
+  <data name="lblOperationOrder_Text" xml:space="preserve">
+    <value>Priorisierung</value>
+  </data>
+  <data name="lblPLCPort_Text" xml:space="preserve">
+    <value>PLC port (default ISO 102)</value>
+  </data>
+  <data name="lblPLCType_Text" xml:space="preserve">
+    <value>SPS-Typ</value>
+  </data>
+  <data name="lblRack_Text" xml:space="preserve">
+    <value>Rack ID</value>
+  </data>
+  <data name="lblReadAddress_Text" xml:space="preserve">
+    <value>Leseadresse</value>
+  </data>
+  <data name="lblReadOptimizationMode_Text" xml:space="preserve">
+    <value>Lese-Optimierung</value>
+  </data>
+  <data name="lblRegion_Text" xml:space="preserve">
+    <value>Bereich</value>
+  </data>
+  <data name="lblSerialCode_Text" xml:space="preserve">
+    <value>Bitte geben Sie zuerst Ihren Serialcode ein     &gt;&gt;&gt;</value>
+  </data>
+  <data name="lblSlot_Text" xml:space="preserve">
+    <value>Slot ID</value>
+  </data>
+  <data name="lblStartAdress_Text" xml:space="preserve">
+    <value>Startadresse (in Bytes)</value>
+  </data>
+  <data name="lblValues_Text" xml:space="preserve">
+    <value>Bitte geben Sie den gewünschten Wert ein:</value>
+  </data>
+  <data name="lblWriteAddress_Text" xml:space="preserve">
+    <value>Schreibadresse</value>
+  </data>
+  <data name="lblWriteOptimizationMode_Text" xml:space="preserve">
+    <value>Schreib-Optimierung</value>
+  </data>
+  <data name="Local_Serviceport_Text" xml:space="preserve">
+    <value>Local Serviceport (default 0)</value>
+  </data>
+  <data name="logo_compatibel_is_obsolete" xml:space="preserve">
+    <value>ePLCType member Logo_compatibel ist veraltet! Bitte benutzen Sie Logo0BA7_compatibel oder Logo0BA8_compatibel</value>
+  </data>
+  <data name="main_Text" xml:space="preserve">
+    <value>Start Beispielanwendung</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Meldung</value>
+  </data>
+  <data name="MessageText" xml:space="preserve">
+    <value>Meldung: </value>
+  </data>
+  <data name="Message_ReadCollection" xml:space="preserve">
+    <value>Bevor Sie die Funktion'Lesen Collection' verwenden, müssen Sie den markierten Bereich (Bearbeiten Collection) im Code-Bereich konfigurieren!</value>
+  </data>
+  <data name="not_successful_deleted" xml:space="preserve">
+    <value>nicht erfolgreich geloescht</value>
+  </data>
+  <data name="operation_aborted" xml:space="preserve">
+    <value>Funktion abgebrochen</value>
+  </data>
+  <data name="OptimizationMode_AUTO_Text" xml:space="preserve">
+    <value>PLCcom wählt automatisch die beste Optimierungsmethode für die Read Requests aus. Es werden nur die minimal erforderlichen SPS-Zugriffe durchgeführt.
+Nur in der Expert Edition verfügbar</value>
+  </data>
+  <data name="OptimizationMode_COMBINE_AREAS_Text" xml:space="preserve">
+    <value>Im COMBINE_AREAS Modus werden Lese-Anforderungen aus denselben Bereichen kombiniert. Vorteil: Schneller und performanter Zugriff auf Daten derselben Bereiche (z. B. Daten in demselben Datenblock)</value>
+  </data>
+  <data name="OptimizationMode_CROSS_AREAS_Text" xml:space="preserve">
+    <value>Im CROSS_AREAS Modus werden die Lese- Anforderungen bereichsübergreifend zusammengeführt. Vorteil: Fragmentierte Bereiche (z. B. Daten über mehrere Datenblöcke) können gleichzeitig gelesen und geschrieben werden</value>
+  </data>
+  <data name="OptimizationMode_NONE_Text" xml:space="preserve">
+    <value>Keine Optimierung, alle Read Requests werden nacheinander gelesen oder geschrieben. Stabil aber langsam.
+Nur zur Fehlerbehebung empfohlen.</value>
+  </data>
+  <data name="ParseError" xml:space="preserve">
+    <value>Fehler beim Parsen aufgetreten! Valuestring ist ungültig!</value>
+  </data>
+  <data name="project_import_done" xml:space="preserve">
+    <value>Projekt Import abgeschlossen!</value>
+  </data>
+  <data name="project_import_starts" xml:space="preserve">
+    <value>Projekt Import startet...</value>
+  </data>
+  <data name="rbRead_Text" xml:space="preserve">
+    <value>SPS lesen</value>
+  </data>
+  <data name="rbWrite_Text" xml:space="preserve">
+    <value>SPS schreiben</value>
+  </data>
+  <data name="read" xml:space="preserve">
+    <value>lesen</value>
+  </data>
+  <data name="reading_blocklist" xml:space="preserve">
+    <value>Lese Blockliste</value>
+  </data>
+  <data name="Serviceport_Text" xml:space="preserve">
+    <value>Serviceport (default 10001)</value>
+  </data>
+  <data name="starting_backup" xml:space="preserve">
+    <value>Starte Sicherung</value>
+  </data>
+  <data name="State_closed" xml:space="preserve">
+    <value>Getrennt</value>
+  </data>
+  <data name="State_closing" xml:space="preserve">
+    <value>Verbindungstrennung...</value>
+  </data>
+  <data name="State_connected" xml:space="preserve">
+    <value>Verbunden</value>
+  </data>
+  <data name="State_connecting" xml:space="preserve">
+    <value>Verbindungsaufbau...</value>
+  </data>
+  <data name="successfully_saved" xml:space="preserve">
+    <value>Daten erfolgreich gespeichert!</value>
+  </data>
+  <data name="successful_deleted" xml:space="preserve">
+    <value>erfolgreich geloescht</value>
+  </data>
+  <data name="successful_saved" xml:space="preserve">
+    <value> erfolgreich gespeichert in </value>
+  </data>
+  <data name="successful_saved_PLC" xml:space="preserve">
+    <value> erfolgreich in der SPS gespeichert aus Datei </value>
+  </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>Zeitstempel</value>
+  </data>
+  <data name="to_many_windows" xml:space="preserve">
+    <value>Zuviele Fenster offen! Bitte schliessen Sie zuerst alle untergeordneten Fenster!</value>
+  </data>
+  <data name="txtInfoBF_Text" xml:space="preserve">
+    <value>In diesem Fenster können Sie die Objektliste einlesen, die Länge einzelner Objekte abrufen. 
+Außerdem stehen Funktionen für Backup und Restore zur Verfügung.</value>
+  </data>
+  <data name="txtInfoDocu_Text_DB" xml:space="preserve">
+    <value>Sie finden Hilfe im Dokument 
+'Documentation_PLCcom_database_interface_german.pdf'</value>
+  </data>
+  <data name="txtInfoDocu_Text_file" xml:space="preserve">
+    <value>Sie finden Hilfe im Dokument 'Documentation_PLCCom_interface_for_filesystem_german.pdf'</value>
+  </data>
+  <data name="txtInfoDS_Text" xml:space="preserve">
+    <value>Der PLCcom-Datenserver überwacht eigenständig Daten in der SPS in einem einstellbaren Zyklus und benachrichtigt die übergeordnete Software bei einer Veränderung mit einem Event.</value>
+  </data>
+  <data name="txtInfoLI_Text" xml:space="preserve">
+    <value>Vielen Dank für die Nutzung unserer PLCcom-Komponente.
+Bevor sie PLCcom ausführen können, geben Sie bitte Ihre Lizenz-Informationen ein.
+Entnehmen Sie diese Daten bitte der eMail, die Sie nach dem Download erhalten haben, oder Ihrem Lizenzzertifikat.</value>
+  </data>
+  <data name="txtInfoLoggingConnectors_Text" xml:space="preserve">
+    <value>Mit Logging-Connectoren können Daten der gelesenen Variablen im Filesystem oder in einer SQL-Datenbank für die weitere Verwendung abgelegt werden. Fortlaufende Archivierung und Erzeugen eines Abildes mit wenigen Zeilen Code.</value>
+  </data>
+  <data name="txtInfoLoggingDefinedConnectors_Text" xml:space="preserve">
+    <value>definierte Logging-Konnektoren</value>
+  </data>
+  <data name="txtInfoOF_Text" xml:space="preserve">
+    <value>In diesem Fenster können Sie die die SPS starten und stoppen. Außerdem können die Daten aus der Hardware auslesen, die Uhr lesen und setzen sowie Diagnostikdaten von der SPS abfragen.</value>
+  </data>
+  <data name="txtInfoRB_OR_Text" xml:space="preserve">
+    <value>In diesem Fenster können einzelne Lese- oder Schreibvorgänge durchgeführt werden. Für optimierte Lesevorgänge benutzen Sie bitte die ReadDataRequestCollection.</value>
+  </data>
+  <data name="txtInfoRCB_Text" xml:space="preserve">
+    <value>Bei Benutzung des ReadWriteRequestSet werden Lese-Schreib-Vorgänge logisch optimiert, sodass nur die minimal notwendigen Zugriffe auf die SPS erfolgen.</value>
+  </data>
+  <data name="txtInfoRequest_Text" xml:space="preserve">
+    <value>In diesem Fenster können einzelne Requests für Lese- oder Schreibvorgänge definiert werden. Das Ergebnis können sie unten in der Textbox ablesen.</value>
+  </data>
+  <data name="txtInfosSymbRBText" xml:space="preserve">
+    <value>In diesem Fenster können Sie symbolische Variablen lesen oder schreiben.</value>
+  </data>
+  <data name="txtWarning_Text" xml:space="preserve">
+    <value>Dieses Beispielprogramm dient Ihnen zur Anschauung, welche Funktionen Ihnen mit PLCCom zur Verfügung gestellt werden. Außerdem bietet es einfache Programmierbeispiele, zum schnellen Verstehen der Programm-Schnittstelle.
+
+Warnung: 
+Mit dem Produkt PLCcom und auch mit diesem Beispielcode werden Sie oder Dritte in die Lage versetzt nach eigenem Ermessen Anlagen, Maschinen oder Ähnliches zu überwachen und zu steuern. Es wird dem Anwender ermöglicht direkt Änderungen an einer verbundenen SPS durchzuführen. Hierzu muss der Benutzer eigenes Wissen bzw. diverse Tätigkeiten einfließen lassen. Hierdurch könnten z.B. bewegliche Teile an Maschinen ohne Vorwarnung anlaufen. 
+Schwere Verletzungen bis hin zum Tode sind möglich.
+Deshalb:  Stellen Sie deshalb unbedingt sicher, dass durch Ihre Arbeiten niemand in Gefahr gerät!
+Führen Sie nur Aktionen durch, bei denen Sie genau wissen was Sie tun. 
+Beachten Sie auch die Sicherheitshinweise in der EULA.</value>
+  </data>
+  <data name="undefinend_Connectiontype" xml:space="preserve">
+    <value>undefinierter Verbindungstyp</value>
+  </data>
+  <data name="undefinend_PLCType" xml:space="preserve">
+    <value>undefinierter SPS-Typ</value>
+  </data>
+  <data name="warning_allow_multiple_bits" xml:space="preserve">
+    <value>Wichtig: Wenn mehrere Bits in einem Request vorhanden sind, kann dieser WriteRequest nicht optimal verarbeitet werden. Alle Bits werden nacheinander geschrieben. Besser und effizienter ist es, wenn für jedes Bit ein eigener WriteRequest verwendet wird.</value>
+  </data>
+  <data name="write" xml:space="preserve">
+    <value>schreiben</value>
+  </data>
+  <data name="wrong_datatype" xml:space="preserve">
+    <value>unbekannter Datentyp</value>
+  </data>
+  <data name="lblIsWriteImageActive_Text" xml:space="preserve">
+    <value>&lt;= Ermöglicht Ihnen das Schreiben des aktuellen Server-Daten-Abbildes in das
+     Filesystem zu Ihrer weiteren Verwendung</value>
+  </data>
+  <data name="captionPlcTypeHelp" xml:space="preserve">
+    <value>Entscheidungshilfe SPS Type</value>
+  </data>
+  <data name="messagePlcTypeHelp" xml:space="preserve">
+    <value>Bitte wählen Sie den für die passenden SPS Type aus der nebenstehenden Liste.
+Wenn Sie symbolisch auf eine 1200er oder 1500er SPS zugreifen möchten, wählen Sie bitte den Typen: Symbolic_Tls13
+
+Bitte beachten Sie: Für einen symbolischen Zugriff müssen bestimmte Vorrausetzungen erfüllt sein:
+
+1. Als Schutzstufe muss mindestens der HMI-Zugriff muss in der Steuerung ohne Passwort freigegeben sein.
+
+2. Die Steuerung muss mindestens mit der TIA-Version 17 erstellt worden sein. Wenn ein Datenbaustein mit einer vorherigen Version erstellt worden sein, so muss er einmal mit TIA ab V17 neu übersetzt worden sein.
+
+3. Es sind mindestens folgende Firmware-Versionen notwendig: 
+- S7-1200 ab V4.5
+- S7-1500 ab V2.9</value>
+  </data>
+  <data name="lblPlcPassword_Text" xml:space="preserve">
+    <value>SPS Passwort</value>
+  </data>
+  <data name="lblSerialLimited_Text" xml:space="preserve">
+    <value>Hinweis: Ohne Lizenzschlüssel ist die Laufzeit auf 15 Minuten begrenzt.</value>
+  </data>
+</root>

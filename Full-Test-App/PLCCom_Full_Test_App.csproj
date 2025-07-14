@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="windows" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFrameworks>net48;net9.0-windows</TargetFrameworks>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
+		
+		<AssemblyName>PLCCom_Full_Test_App</AssemblyName>
+		<RootNamespace>PLCCom_Full_Test_App</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="PLCcomForS7" Version="15.2.5" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.5" />
+		
+	</ItemGroup>
+	
+	<Choose>
+		<When Condition="'$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48'">
+			<ItemGroup>
+				<Reference Include="Microsoft.CSharp" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="System.IO.Ports" Version="9.0.6" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+	
+
+	<ItemGroup>
+		<Compile Update="Symbolic\AlarmFunctions.cs">
+		  <SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+</Project>
