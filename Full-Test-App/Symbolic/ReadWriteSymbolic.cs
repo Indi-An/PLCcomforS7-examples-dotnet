@@ -1,4 +1,5 @@
-﻿using PLCcom;
+﻿using Org.BouncyCastle.Asn1.Ocsp;
+using PLCcom;
 using PLCcom.Core.S7Plus;
 using PLCcom.Core.S7Plus.AddressSpace;
 using PLCcom.Requests.S7Plus;
@@ -7,17 +8,27 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
 namespace PLCCom_Full_Test_App.Symbolic
 {
+    /// <summary>
+    /// WinForms form for symbolic reading and writing of PLC variables using the PLCcom library.
+    /// </summary>
     public partial class ReadWriteSymbolic : Form
     {
+        /// <summary>
+        /// Initializes the form and assigns the symbolic device.
+        /// </summary>
+        /// <param name="device">The symbolic device to interact with.</param>
         public ReadWriteSymbolic(SymbolicDevice device)
         {
-            //set ressources
-            resources = new System.Resources.ResourceManager("PLCCom_Full_Test_App.Properties.Resources", this.GetType().Assembly);
+            // Load localized UI resources from assembly
+            resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
+
             InitializeComponent();
             this._device = device;
         }
@@ -26,38 +37,50 @@ namespace PLCCom_Full_Test_App.Symbolic
         private SymbolicDevice _device;
         private System.Resources.ResourceManager resources;
         private string ValuetoWrite = string.Empty;
-        //private List<AddressNode> mGlobalAddressTree;
         #endregion
 
+        /// <summary>
+        /// Handles form load. Initializes device info, UI text, and populates the TreeView with root nodes.
+        /// </summary>
         private void ReadWriteSymbolic_Load(object sender, EventArgs e)
         {
             try
             {
+                // Display device GUID and type in the UI
                 lblDeviceGUID.Text = "Device Guid: " + _device.DeviceGuid.ToString();
                 lblDeviceType.Text = "DeviceType: " + _device.GetType().ToString();
 
+                // Obtain the global address tree from the device
                 var globalAddressTree = _device.GetAddressNodeTree();
 
+                treePlcInventory.BeginUpdate();
                 treePlcInventory.Nodes.Clear();
 
-                foreach (var addressTreeNode in globalAddressTree)
+                foreach (var addressNode in globalAddressTree)
                 {
-                    var rootNode = new TreeNode(addressTreeNode.ObjectDescriptor);
-                    rootNode.Tag = addressTreeNode.NodeDetails;
-                    AddChildNodes(rootNode, addressTreeNode);
+                    var rootNode = new TreeNode(addressNode.ObjectDescriptor)
+                    {
+                        Tag = addressNode    // Store AddressNode object in the TreeNode's Tag property
+                    };
+
+                    // Add a dummy child if there are further nodes, for lazy loading
+                    if (addressNode.GetChildNodes().Any())
+                        rootNode.Nodes.Add(new TreeNode("Load…"));
+
                     treePlcInventory.Nodes.Add(rootNode);
                 }
+                treePlcInventory.EndUpdate();
 
+                // Register handler for expanding nodes (lazy loading)
+                treePlcInventory.AfterExpand += TreePlcInventory_AfterExpand;
+
+                // Set UI labels from localized resources
                 this.lblLog.Text = resources.GetString("lblLog_Text");
                 this.grpAddress.Text = resources.GetString("grpAddress_Text");
-
                 this.btnClose.Text = resources.GetString("btnClose_Text");
-
                 this.btnSaveLogtoClipboard.Text = resources.GetString("btnSaveLogtoClipboard_Text");
                 this.btnSaveLogtoFile.Text = resources.GetString("btnSaveLogtoFile_Text");
                 this.txtInfoSymbRB.Text = resources.GetString("txtInfosSymbRBText");
-
-
             }
             catch (Exception ex)
             {
@@ -65,42 +88,103 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
         }
 
-        private void AddChildNodes(TreeNode parentTreeNode, AddressNode addressNode)
+        /// <summary>
+        /// Dynamically loads child nodes when a TreeView node is expanded (lazy loading).
+        /// </summary>
+        private void TreePlcInventory_AfterExpand(object sender, TreeViewEventArgs e)
         {
-            foreach (var childnode in addressNode.GetChildNodes())
+            // Show wait cursor for user feedback during potentially long operation
+            Application.UseWaitCursor = true;
+            Cursor.Current = Cursors.WaitCursor;
+            Application.DoEvents(); // Force repaint so the cursor is visible
+
+            try
             {
-                var childTreeNode = new TreeNode(childnode.NodeDetails.NodeName);
-                childTreeNode.Tag = childnode.NodeDetails;
-                parentTreeNode.Nodes.Add(childTreeNode);
-                AddChildNodes(childTreeNode, childnode);
+                var node = e.Node;
+
+                // Only process nodes with a dummy ("Load…") child
+                if (node.Nodes.Count == 1 && node.Nodes[0].Text == "Load…")
+                {
+                    this.UseWaitCursor = true;
+
+                    // Refresh UI to ensure the expanded state and "Load…" dummy are painted
+                    this.Refresh();
+                    treePlcInventory.Refresh();
+                    Application.DoEvents();
+
+                    // Remove the dummy and load the real children
+                    node.Nodes.Clear();
+
+                    var parent = (AddressNode)node.Tag;
+                    var children = parent.GetChildNodes().ToArray();
+
+                    // Prepare child nodes, each with a dummy if it also has children
+                    var newNodes = children.Select(child =>
+                    {
+                        var tn = new TreeNode(child.NodeDetails.NodeName)
+                        {
+                            Tag = child
+                        };
+                        if (child.GetChildNodes().Any())
+                            tn.Nodes.Add(new TreeNode("Load…"));
+                        return tn;
+                    }).ToArray();
+
+                    // Add all new child nodes in a single update block for performance
+                    treePlcInventory.BeginUpdate();
+                    treePlcInventory.SuspendLayout();
+                    node.Nodes.AddRange(newNodes);
+                    treePlcInventory.ResumeLayout(false);
+                    treePlcInventory.EndUpdate();
+                }
+            }
+            finally
+            {
+                // Restore default cursor
+                Application.UseWaitCursor = false;
+                Cursor.Current = Cursors.Default;
             }
         }
 
+        /// <summary>
+        /// Handles the Close button click and closes the form. Unsubscribes TreeView events for cleanup.
+        /// </summary>
         private void btnClose_Click(object sender, EventArgs e)
         {
+            // Unregister TreeView event handlers to prevent further event firing
+            treePlcInventory.AfterExpand -= TreePlcInventory_AfterExpand;
+            treePlcInventory.AfterSelect -= treePlcInventory_AfterSelect;
             this.Close();
         }
 
+        /// <summary>
+        /// Copies all log entries from the ListView to the clipboard as plain text.
+        /// </summary>
         private void btnSaveLogtoClipboard_Click(object sender, EventArgs e)
         {
-            //copy diagnostic log to clipboard
+            // Build log as single string
             StringBuilder sb = new StringBuilder();
             foreach (ListViewItem lvi in lvLog.Items)
             {
                 sb.Append(lvi.Text);
                 sb.Append(Environment.NewLine);
             }
+            // Copy to clipboard if log is not empty
             if (!string.IsNullOrEmpty(sb.ToString()))
             {
                 Clipboard.SetText(sb.ToString(), TextDataFormat.Text);
             }
         }
 
+        /// <summary>
+        /// Saves all log entries from the ListView to a .log file in the user's LocalApplicationData folder.
+        /// </summary>
         private void btnSaveLogtoFile_Click(object sender, EventArgs e)
         {
+            // Compose default log file path in LocalApplicationData
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PLCcom", "ForS7");
 
-            // Check if the directory exists, if not, create it
+            // Ensure the log directory exists
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -114,7 +198,7 @@ namespace PLCCom_Full_Test_App.Symbolic
 
             if (mySaveDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(mySaveDialog.FileName))
             {
-                //copy diagnostic log to file
+                // Collect log entries to write
                 StringBuilder sb = new StringBuilder();
                 foreach (ListViewItem lvi in lvLog.Items)
                 {
@@ -122,6 +206,7 @@ namespace PLCCom_Full_Test_App.Symbolic
                     sb.Append(Environment.NewLine);
                 }
 
+                // Write log to selected file in binary format
                 FileStream fs = File.Create(mySaveDialog.FileName);
                 BinaryWriter bw = new BinaryWriter(fs);
 
@@ -137,98 +222,57 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
             else
             {
-                //abort message
+                // Inform user if operation was cancelled
                 MessageBox.Show(resources.GetString("operation_aborted"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        /// <summary>
+        /// Decrements the open dialog counter in the main form when this dialog is closed.
+        /// </summary>
         private void ReadWriteSymbolic_FormClosing(object sender, FormClosingEventArgs e)
         {
             Main.CountOpenDialogs--;
         }
 
-
-
-
+        /// <summary>
+        /// Handles TreeView node selection, displays variable details and enables read/write UI state accordingly.
+        /// </summary>
         private void treePlcInventory_AfterSelect(object sender, TreeViewEventArgs e)
         {
             try
             {
-                var nodedetails = e.Node.Tag as VariableDetails;
-                if (nodedetails != null)
+                // Cast the Tag property to AddressNode, clear fields if null
+                if (!(e.Node.Tag is AddressNode selectedNode))
                 {
-                    txtFullVariableName.Text = nodedetails.FullVariableName;
-                    txtDataType.Text = nodedetails.VariableDataType.ToString();
-                    picIsReadable.Visible = nodedetails.IsReadable;
-                    picNotIsReadable.Visible = !picIsReadable.Visible;
-                    picIsWritable.Visible = nodedetails.IsWritable;
-                    picNotIsWritable.Visible = !picIsWritable.Visible;
-
-                    picIsArray.Visible = nodedetails.IsArray;
-                    picNotIsArray.Visible = !picIsArray.Visible;
-                    picIsStruct.Visible = nodedetails.IsStruct;
-                    picNotIsStruct.Visible = !picIsStruct.Visible;
-                }
-                else
-                {
-                    txtFullVariableName.Text = string.Empty;
-                    txtDataType.Text = string.Empty;
+                    ClearDetailFields();
                     return;
                 }
 
-                if (nodedetails.IsWritable)
-                {
-                    btnWrite.Enabled = true;
-                    txtValue.ReadOnly = false;
-                }
+                var details = selectedNode.NodeDetails;
+
+                // Update UI fields with variable details
+                txtFullVariableName.Text = details.FullVariableName;
+                txtDataType.Text = details.VariableDataType.ToString();
+
+                picIsReadable.Visible = details.IsReadable;
+                picNotIsReadable.Visible = !details.IsReadable;
+                picIsWritable.Visible = details.IsWritable;
+                picNotIsWritable.Visible = !details.IsWritable;
+
+                picIsArray.Visible = details.IsArray;
+                picNotIsArray.Visible = !details.IsArray;
+                picIsStruct.Visible = details.IsStruct;
+                picNotIsStruct.Visible = !details.IsStruct;
+
+                btnWrite.Enabled = details.IsWritable;
+                txtValue.ReadOnly = !details.IsWritable;
+
+                // If variable is readable, display its value; otherwise clear value fields
+                if (details.IsReadable)
+                    UpdateReadValues(details.FullVariableName);
                 else
-                {
-                    btnWrite.Enabled = false;
-                    txtValue.ReadOnly = true;
-                }
-
-                if (nodedetails.IsReadable)
-                {
-
-                    ReadSymbolicRequest readRequest = new ReadSymbolicRequest();
-                    readRequest.AddFullVariableName(txtFullVariableName.Text);
-                    var readResult = _device.ReadData(readRequest) as ReadSymbolicResultSet;
-                    if (readResult.Quality == OperationResult.eQuality.GOOD ||
-                        readResult.Quality == OperationResult.eQuality.WARNING_PARTITIAL_BAD)
-                    {
-                        txtValue.Text = readResult.Variables[0].ValueAsJson.ToString();
-                    }
-
-
-                    txtQuality.Text = readResult.Quality.ToString();
-                    txtMessage.Text = readResult.Message;
-
-                    switch (readResult.Quality)
-                    {
-
-                        case OperationResult.eQuality.GOOD:
-                            txtQuality.BackColor = Color.LimeGreen;
-                            break;
-                        case OperationResult.eQuality.WARNING_PARTITIAL_BAD:
-                            txtQuality.BackColor = Color.Yellow;
-                            break;
-                        default:
-                            txtQuality.BackColor = Color.Red;
-                            break;
-                    }
-
-                }
-                else
-                {
-                    txtValue.Text = string.Empty;
-                    txtMessage.Text = string.Empty;
-                    txtQuality.Text = string.Empty;
-                    txtValue.Text = string.Empty;
-                    txtQuality.Text = string.Empty;
-                    txtMessage.Text = string.Empty;
-                    txtQuality.BackColor = Color.White;
-                }
-
+                    ClearReadValues();
             }
             catch (Exception ex)
             {
@@ -236,11 +280,68 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
         }
 
+        /// <summary>
+        /// Clears detail fields for variable name, type, and all read values.
+        /// </summary>
+        private void ClearDetailFields()
+        {
+            txtFullVariableName.Clear();
+            txtDataType.Clear();
+            ClearReadValues();
+        }
+
+        /// <summary>
+        /// Clears value, quality, and message fields for read operations and resets background color.
+        /// </summary>
+        private void ClearReadValues()
+        {
+            txtValue.Clear();
+            txtQuality.Clear();
+            txtMessage.Clear();
+            txtQuality.BackColor = Color.White;
+        }
+
+        /// <summary>
+        /// Executes a read operation for the given variable name and updates UI with results.
+        /// </summary>
+        /// <param name="fullVarName">The full symbolic name of the variable to read.</param>
+        private void UpdateReadValues(string fullVarName)
+        {
+            var req = new ReadSymbolicRequest();
+            req.AddFullVariableName(fullVarName);
+            var res = _device.ReadData(req) as ReadSymbolicResultSet;
+
+            // Update UI with value and quality
+            txtValue.Text = res.Variables[0].ValueAsJson.ToString();
+            txtQuality.Text = res.Quality.ToString();
+            txtMessage.Text = res.Message;
+
+            // Set background color based on quality
+            switch (res.Quality)
+            {
+                case OperationResult.eQuality.GOOD:
+                    txtQuality.BackColor = Color.LimeGreen;
+                    break;
+                case OperationResult.eQuality.WARNING_PARTITIAL_BAD:
+                    txtQuality.BackColor = Color.Yellow;
+                    break;
+                default:
+                    txtQuality.BackColor = Color.Red;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Handles the Write button click event and triggers value writing.
+        /// </summary>
         private void btnWrite_Click(object sender, EventArgs e)
         {
             WriteValue();
         }
 
+        /// <summary>
+        /// Performs a symbolic write operation for the current variable and updates the UI with the write result.
+        /// </summary>
         private void WriteValue()
         {
             try
@@ -250,11 +351,13 @@ namespace PLCCom_Full_Test_App.Symbolic
                 if (variableBody == null)
                     throw new ArgumentNullException("Cannot found variable for writing");
 
+                // Set the value to write from the UI textbox
                 variableBody.ValueAsJson = txtValue.Text;
 
                 WriteSymbolicRequest writeRequest = new(variableBody);
                 WriteSymbolicResultSet writeResult = _device.WriteData(writeRequest);
 
+                // If the write operation is good or partially good, update UI with detailed result
                 if (writeResult.IsQualityGoodOrWarning())
                 {
                     txtQuality.Text = writeResult.WriteOperationResults[0].Quality.ToString();
@@ -262,7 +365,6 @@ namespace PLCCom_Full_Test_App.Symbolic
 
                     switch (writeResult.WriteOperationResults[0].Quality)
                     {
-
                         case OperationResult.eQuality.GOOD:
                             txtQuality.BackColor = Color.LimeGreen;
                             break;
@@ -276,12 +378,12 @@ namespace PLCCom_Full_Test_App.Symbolic
                 }
                 else
                 {
+                    // Otherwise display the overall write quality and message
                     txtQuality.Text = writeResult.Quality.ToString();
                     txtMessage.Text = writeResult.Message;
 
                     switch (writeResult.Quality)
                     {
-
                         case OperationResult.eQuality.GOOD:
                             txtQuality.BackColor = Color.LimeGreen;
                             break;
@@ -293,17 +395,11 @@ namespace PLCCom_Full_Test_App.Symbolic
                             break;
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-
     }
-
 }
-

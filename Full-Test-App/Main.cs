@@ -140,7 +140,6 @@ namespace PLCCom_Full_Test_App
             this.lblConnectionType.Text = resources.GetString("lblConnectionType_Text");
             this.lblAsyncConnect.Text = resources.GetString("chkAsyncConnect_TextAsync");
             this.lblProtectionPassword.Text = resources.GetString("lblPlcPassword_Text");
-            this.lblSerialLimited.Text = resources.GetString("lblSerialLimited_Text");
 
         }
 
@@ -971,52 +970,51 @@ namespace PLCCom_Full_Test_App
 
         private void btnReadWriteFunctions_Click(object sender, EventArgs e)
         {
-            CountOpenDialogs++;
-            ReadWriteBox rcb = new ReadWriteBox((PLCcomDevice)mDevice);
-            rcb.Show(this);
+            ShowDialogOnNewThread(() =>
+                new ReadWriteBox((PLCcomDevice)mDevice)
+            );
         }
 
         private void btnDataServer_Click(object sender, EventArgs e)
         {
-            CountOpenDialogs++;
-            DataServerFunctions dsf = new DataServerFunctions((PLCcomDevice)mDevice);
-            dsf.Show(this);
+            ShowDialogOnNewThread(() =>
+                new DataServerFunctions((PLCcomDevice)mDevice)
+            );
         }
 
         private void btnOtherFunctions_Click(object sender, EventArgs e)
         {
-            CountOpenDialogs++;
-            OtherFunctions of = new OtherFunctions((PLCcomCoreDevice)mDevice);
-            of.Show(this);
-
+            ShowDialogOnNewThread(() =>
+                new OtherFunctions((PLCcomCoreDevice)mDevice)
+            );
         }
 
         private void btnBlockFunctions_Click(object sender, EventArgs e)
         {
-            CountOpenDialogs++;
-            BlockFunctions bf = new BlockFunctions((PLCcomDevice)mDevice);
-            bf.Show(this);
+            ShowDialogOnNewThread(() =>
+                new BlockFunctions((PLCcomDevice)mDevice)
+            );
         }
 
         private void btnOptimizedReadWriteBox_Click(object sender, EventArgs e)
         {
-            CountOpenDialogs++;
-            OptimizedReadWriteBox rcb = new OptimizedReadWriteBox((PLCcomDevice)mDevice);
-            rcb.Show(this);
+            ShowDialogOnNewThread(() =>
+                new OptimizedReadWriteBox((PLCcomDevice)mDevice)
+            );
         }
 
         private void btnReadWriteSymbolic_Click(object sender, EventArgs e)
         {
-            CountOpenDialogs++;
-            ReadWriteSymbolic rws = new ReadWriteSymbolic((SymbolicDevice)mDevice);
-            rws.Show(this);
+            ShowDialogOnNewThread(() =>
+                new ReadWriteSymbolic((SymbolicDevice)mDevice)
+            );
         }
 
         private void btnAlarm_Click(object sender, EventArgs e)
         {
-            CountOpenDialogs++;
-            AlarmFunctions of = new AlarmFunctions((SymbolicDevice)mDevice);
-            of.Show(this);
+            ShowDialogOnNewThread(() =>
+                new AlarmFunctions((SymbolicDevice)mDevice)
+            );
         }
 
 
@@ -1027,6 +1025,41 @@ namespace PLCCom_Full_Test_App
             MessageBox.Show(message, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Opens a WinForms Form on its own STA thread, isolating its UI and message loop from the main window.
+        /// This ensures that heavy operations (e.g., loading or disposing large controls) don't block the primary UI thread.
+        /// </summary>
+        /// <param name="createForm">
+        /// A factory delegate that constructs and returns the Form instance to display. 
+        /// Use this to pass any Form type along with its required constructor parameters.
+        /// </param>
+        private void ShowDialogOnNewThread(Func<Form> createForm)
+        {
+            // 1. Increment the global counter of open dialogs in the main form
+            CountOpenDialogs++;
+
+            // 2. Create a new thread dedicated to running the dialog
+            var thread = new Thread(() =>
+            {
+                // 2.1 Instantiate the dialog Form
+                Form dialog = createForm();
+
+                // 2.2 When the form closes, exit the message loop on this thread
+                dialog.FormClosed += (sender, args) => Application.ExitThread();
+
+                // 2.3 Start a new WinForms message loop on this STA thread
+                Application.Run(dialog);
+            });
+
+            // 3. WinForms requires STA (single-threaded apartment) model
+            thread.SetApartmentState(ApartmentState.STA);
+
+            // 4. Mark as background thread so it doesn't prevent app exit
+            thread.IsBackground = true;
+
+            // 5. Begin execution: shows the form and processes its UI events independently
+            thread.Start();
+        }
 
     }
 }

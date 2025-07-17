@@ -27,7 +27,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="PLCcomForS7" Version="15.2.5" />
+		<PackageReference Include="PLCcomForS7" Version="15.2.8" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
 		<PackageReference Include="System.Drawing.Common" Version="9.0.5" />
 		

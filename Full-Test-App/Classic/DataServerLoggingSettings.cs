@@ -8,9 +8,15 @@ using PLCcom.PLCComDataServer;
 
 namespace PLCCom_Full_Test_App.Classic
 {
+    /// <summary>
+    /// Form for configuring logging connectors for the PLCcom DataServer.
+    /// Supports filesystem and MSSQL database connectors.
+    /// </summary>
     public partial class DataServerLoggingSettings : Form
     {
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DataServerLoggingSettings"/> class.
+        /// </summary>
         public DataServerLoggingSettings()
         {
             InitializeComponent();
@@ -18,16 +24,31 @@ namespace PLCCom_Full_Test_App.Classic
 
         #region private member
 
+        /// <summary>
+        /// Resource manager for UI string localization.
+        /// </summary>
         private System.Resources.ResourceManager resources = null;
+
+        /// <summary>
+        /// Reference to the PLCComDataServer instance for connector management.
+        /// </summary>
         PLCComDataServer myDataServer;
         #endregion
 
+        /// <summary>
+        /// Enum for possible connector types.
+        /// </summary>
         private enum eTypeOfConnector
         {
             Filesystem_Connector,
             MSSQL_DB_Connector
         }
 
+        /// <summary>
+        /// Shows the settings dialog and returns the possibly modified DataServer instance.
+        /// </summary>
+        /// <param name="DataServer">The DataServer instance to configure.</param>
+        /// <returns>The modified DataServer instance.</returns>
         internal PLCComDataServer ShowSettings(PLCComDataServer DataServer)
         {
             try
@@ -37,21 +58,25 @@ namespace PLCCom_Full_Test_App.Classic
             }
             catch (Exception)
             {
-
+                // Suppress any exceptions during showing the dialog
             }
             return myDataServer;
         }
 
+        /// <summary>
+        /// Initializes all controls, populates combos, and fills connector list on load.
+        /// </summary>
         private void DataServerLoggingSettings_Load(object sender, EventArgs e)
         {
-            //init controls
-            resources = new System.Resources.ResourceManager("PLCCom_Full_Test_App.Properties.Resources", this.GetType().Assembly);
+            // Init controls and load UI text from resources
+            resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
 
             cmbConnectorType.DataSource = Enum.GetValues(typeof(eTypeOfConnector));
             cmbImageOutputFormat.DataSource = Enum.GetValues(typeof(PLCcom.ExternalLogging.eImageOutputFormat));
 
             this.txtFolderName.Text = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PLCcom", "ForS7");
 
+            // Set localized UI texts
             this.btnClose.Text = resources.GetString("btnClose_Text");
             this.btnAccept.Text = resources.GetString("btnAccept_Text");
             this.btnReject.Text = resources.GetString("btnReject_Text");
@@ -74,7 +99,6 @@ namespace PLCCom_Full_Test_App.Classic
             this.txtInfoCreateListener.Text = resources.GetString("lblInfoCreateListener_Text");
             this.grbFilesystemConnectorSettings.Text = resources.GetString("grbFilesystemConnectorSettings_Text");
             this.grbDatabaseConnectorSettings.Text = resources.GetString("grbDatabaseConnectorSettings_Text");
-
             this.lblFolderName.Text = resources.GetString("lblFolderName_Text");
             this.chkIsWriteLogActiveDB.Text = resources.GetString("chkIsWriteLogActive_Text");
             this.chkIsWriteImageActiveDB.Text = resources.GetString("chkIsWriteImageActive_Text");
@@ -86,12 +110,11 @@ namespace PLCCom_Full_Test_App.Classic
             this.lblMaxFileSizeMB.Text = resources.GetString("lblMaxFileSizeMB_Text");
             this.lblImageOutputFormat.Text = resources.GetString("lblImageOutputFormat_Text");
             this.lblConnectionMessage.Text = resources.GetString("lblConnectionMessage_Text");
-
             this.btnAddConnector.Text = resources.GetString("btnAddConnector_Text");
             this.btnRemoveConnector.Text = resources.GetString("btnRemoveConnector_Text");
-            this.txtInfoDocu.Text  = resources.GetString("txtInfoDocu_Text_file");
+            this.txtInfoDocu.Text = resources.GetString("txtInfoDocu_Text_file");
 
-            // search unused Connector name
+            // Search for an unused connector name
             int counter = 1;
             String RequestName = (((eTypeOfConnector)cmbConnectorType.SelectedItem).Equals(eTypeOfConnector.Filesystem_Connector) ? "Filesystem" : "Database") + "Connector_";
             do
@@ -109,12 +132,15 @@ namespace PLCCom_Full_Test_App.Classic
 
             txtConnectorNameDB.Text = txtConnectorName.Text;
 
-            //fill connector listview
+            // Fill connector listview with all connectors
             fillConnectorListView();
 
             btnAddConnector.Focus();
         }
 
+        /// <summary>
+        /// Handles change of connector type (filesystem/MSSQL). Updates UI and default names.
+        /// </summary>
         private void cmbConnectorType_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -124,7 +150,7 @@ namespace PLCCom_Full_Test_App.Classic
                     case eTypeOfConnector.Filesystem_Connector:
                         grbDatabaseConnectorSettings.Visible = false;
                         grbFilesystemConnectorSettings.Visible = true;
-                        txtInfoDocu.Text  = resources.GetString("txtInfoDocu_Text_file");
+                        txtInfoDocu.Text = resources.GetString("txtInfoDocu_Text_file");
                         break;
                     case eTypeOfConnector.MSSQL_DB_Connector:
                         grbDatabaseConnectorSettings.Visible = true;
@@ -132,7 +158,7 @@ namespace PLCCom_Full_Test_App.Classic
                         txtInfoDocu.Text = resources.GetString("txtInfoDocu_Text_DB");
                         break;
                 }
-                // search unused Connector name
+                // Search unused connector name again when switching type
                 int counter = 1;
                 String RequestName = (((eTypeOfConnector)cmbConnectorType.SelectedItem).Equals(eTypeOfConnector.Filesystem_Connector) ? "Filesystem" : "Database") + "Connector_";
                 do
@@ -156,14 +182,16 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Opens a folder browser dialog to select the target log folder.
+        /// </summary>
         private void btnFolderName_Click(object sender, EventArgs e)
         {
             try
             {
-
                 string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PLCcom", "ForS7");
 
-                // Check if the directory exists, if not, create it
+                // Ensure the default folder exists
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -185,6 +213,9 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Enables or disables log file settings when the log writing checkbox changes.
+        /// </summary>
         private void chkIsWriteLogActive_CheckedChanged(object sender, EventArgs e)
         {
             txtMaxAgeHours.Enabled = chkIsWriteLogActive.Checked;
@@ -192,17 +223,23 @@ namespace PLCCom_Full_Test_App.Classic
             txtMaxNumberOfLogFiles.Enabled = chkIsWriteLogActive.Checked;
         }
 
+        /// <summary>
+        /// Enables or disables image format selection when the image writing checkbox changes.
+        /// </summary>
         private void chkIsWriteImageActive_CheckedChanged(object sender, EventArgs e)
         {
             cmbImageOutputFormat.Enabled = chkIsWriteImageActive.Checked;
         }
 
+        /// <summary>
+        /// Handles Add Connector button. Initializes form for entering a new connector.
+        /// </summary>
         private void btnAddConnector_Click(object sender, EventArgs e)
         {
             try
             {
                 btnAddConnector.Enabled = false;
-                // search unused Connector name
+                // Search for unused connector name
                 int counter = 1;
                 String RequestName = (((eTypeOfConnector)cmbConnectorType.SelectedItem).Equals(eTypeOfConnector.Filesystem_Connector) ? "Filesystem" : "Database") + "Connector_";
                 do
@@ -228,16 +265,22 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Closes the settings dialog.
+        /// </summary>
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Cancels the addition or editing of a connector and resets form state.
+        /// </summary>
         private void btnReject_Click(object sender, EventArgs e)
         {
             try
             {
-                // search unused Connector name
+                // Search for unused connector name again
                 int counter = 1;
                 String RequestName = (((eTypeOfConnector)cmbConnectorType.SelectedItem).Equals(eTypeOfConnector.Filesystem_Connector) ? "Filesystem" : "Database") + "Connector_";
                 do
@@ -264,6 +307,9 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Accepts and saves the new or edited connector to the DataServer.
+        /// </summary>
         private void btnAccept_Click(object sender, EventArgs e)
         {
             try
@@ -276,45 +322,47 @@ namespace PLCCom_Full_Test_App.Classic
                         int MaxAgeHours;
                         int MaxFileSizeMB;
 
-                        //parse inputs before execute
+                        // Parse numeric inputs before creating connector
                         MaxNumberOfLogFiles = int.Parse(txtMaxNumberOfLogFiles.Text);
                         MaxAgeHours = int.Parse(txtMaxAgeHours.Text);
                         MaxFileSizeMB = int.Parse(txtMaxFileSizeMB.Text);
 
-                        //create new FileSystemConnector instance
-                        con = new PLCcom.ExternalLogging.FileSystemConnector(txtFolderName.Text,                //Target folder
-                                                                            txtConnectorName.Text,              //unique connector name
-                                                                            ';',                                //text separator recommendation ';'
-                                                                            chkIsWriteLogActive.Checked,        //activate progressive logging
-                                                                            chkIsWriteImageActive.Checked,      //activate immage writing
-                                                                            (PLCcom.ExternalLogging.eImageOutputFormat)
-                                                                            cmbImageOutputFormat.SelectedItem,  //output format .dat or .xml
-                                                                            MaxNumberOfLogFiles,                //restrict the maximum number of files. When the value is exceeded the old files are automatically deleted. -1 = Disabled.
-                                                                            MaxAgeHours,                        //restrict the maximum age of files. When the value is exceeded the old files are automatically deleted. -1 = Disabled.
-                                                                            MaxFileSizeMB,                      //You can restrict the maximum size of files. When the value is exceeded the old files are automatically deleted. -1 = Disabled.
-                                                                            txtEncryptionPassword.Text);        //If you enter an encryption password, the data is stored in encrypted form. You can read the data using the supplied decryption tool again.
-
-
+                        // Create new FileSystemConnector instance
+                        con = new PLCcom.ExternalLogging.FileSystemConnector(
+                            txtFolderName.Text,                              // Target folder
+                            txtConnectorName.Text,                          // Unique connector name
+                            ';',                                            // Field separator
+                            chkIsWriteLogActive.Checked,                    // Enable progressive logging
+                            chkIsWriteImageActive.Checked,                  // Enable image writing
+                            (PLCcom.ExternalLogging.eImageOutputFormat)
+                                cmbImageOutputFormat.SelectedItem,          // Output format (.dat or .xml)
+                            MaxNumberOfLogFiles,                            // Max files, -1 disables limit
+                            MaxAgeHours,                                    // Max file age, -1 disables limit
+                            MaxFileSizeMB,                                  // Max file size, -1 disables limit
+                            txtEncryptionPassword.Text                      // Optional encryption password
+                        );
                         break;
                     case eTypeOfConnector.MSSQL_DB_Connector:
 
                         if (string.IsNullOrEmpty(txtSQLConnectionString.Text)) throw new Exception("Connectionstring is null or empty");
 
-                        //Create two valid MS SQL Connections and refer it to new database connector
+                        // Create MS SQL database connections for log and image archive
                         System.Data.SqlClient.SqlConnection SQLConLogArchive = new System.Data.SqlClient.SqlConnection(txtSQLConnectionString.Text);
                         System.Data.SqlClient.SqlConnection SQLConImageArchive = new System.Data.SqlClient.SqlConnection(txtSQLConnectionString.Text);
-                        con = new PLCcom.ExternalLogging.DataBaseConnector(SQLConLogArchive,                      //A valid database connection for writing 'Log-Archive' based of a DbConnection object. If the value is null, the flag 'isWriteLogActive' will be disabled
-                                                                           SQLConImageArchive,                    //A valid database connection for writing 'Image-Archive' based of a DbConnection object. If the value is null, the flag 'isWriteImageActive' will be disabled
-                                                                           txtConnectorNameDB.Text,               //unique connector name
-                                                                           chkIsWriteLogActiveDB.Checked,         //activate progressive logging
-                                                                           chkIsWriteImageActiveDB.Checked);      //activate immage writing
+                        con = new PLCcom.ExternalLogging.DataBaseConnector(
+                            SQLConLogArchive,                              // Connection for log archive
+                            SQLConImageArchive,                            // Connection for image archive
+                            txtConnectorNameDB.Text,                       // Unique connector name
+                            chkIsWriteLogActiveDB.Checked,                 // Enable logging
+                            chkIsWriteImageActiveDB.Checked                // Enable image writing
+                        );
                         break;
                 }
 
-                //Add Connector to PLCcom data server
+                // Add or replace connector in the DataServer
                 myDataServer.AddOrReplaceLoggingConnector(con);
 
-                // search unused Connector name
+                // Search unused connector name after add
                 int counter = 1;
                 String RequestName = (((eTypeOfConnector)cmbConnectorType.SelectedItem).Equals(eTypeOfConnector.Filesystem_Connector) ? "Filesystem" : "Database") + "Connector_";
                 do
@@ -334,7 +382,6 @@ namespace PLCCom_Full_Test_App.Classic
                 grbNewConnector.Enabled = false;
                 btnRemoveConnector.Enabled = lvConnectors.SelectedItems != null && lvConnectors.SelectedItems.Count > 0;
                 btnAddConnector.Enabled = true;
-
             }
             catch (Exception ex)
             {
@@ -346,12 +393,15 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Populates the connectors ListView with all connectors from the DataServer.
+        /// </summary>
         private void fillConnectorListView()
         {
-            //clear ListView initial
+            // Clear ListView before repopulating
             lvConnectors.Items.Clear();
 
-            //fill ListView with current ReadRequests
+            // Add all current logging connectors to the ListView
             foreach (PLCcom.ExternalLogging.LoggingConnector lc in myDataServer.GetLoggingConnectors())
             {
                 ListViewItem lvi = new ListViewItem(lc.GetConnectorName());
@@ -360,9 +410,11 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Removes the selected connector from the DataServer and refreshes the ListView.
+        /// </summary>
         private void btnRemoveConnector_Click(object sender, EventArgs e)
         {
-            //remove request from request collection
             try
             {
                 if (lvConnectors.SelectedItems.Count != 0)
@@ -378,7 +430,7 @@ namespace PLCCom_Full_Test_App.Classic
             {
                 fillConnectorListView();
 
-                // search unused Connector name
+                // Search unused connector name after remove
                 int counter = 1;
                 String RequestName = (((eTypeOfConnector)cmbConnectorType.SelectedItem).Equals(eTypeOfConnector.Filesystem_Connector) ? "Filesystem" : "Database") + "Connector_";
                 do
@@ -396,10 +448,12 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Enables or disables the Remove Connector button depending on selection.
+        /// </summary>
         private void lvConnectors_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnRemoveConnector.Enabled = lvConnectors.SelectedItems != null && lvConnectors.SelectedItems.Count > 0;
         }
-
     }
 }

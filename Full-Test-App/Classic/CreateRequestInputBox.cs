@@ -7,28 +7,60 @@ using PLCcom.Core.S7Plus.DataTypes;
 
 namespace PLCCom_Full_Test_App.Classic
 {
+    /// <summary>
+    /// Input dialog for creating and configuring a ReadDataRequest or WriteDataRequest.
+    /// Supports all S7 data types, regions, and options for single/multiple values.
+    /// </summary>
     public partial class CreateRequestInputBox : Form
     {
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateRequestInputBox"/> class.
+        /// </summary>
+        /// <param name="withWriteOption">If true, enables write operation UI.</param>
         public CreateRequestInputBox(bool withWriteOption)
         {
-            //set ressources
+            // Set resources
             this.withWriteOption = withWriteOption;
-            resources = new System.Resources.ResourceManager("PLCCom_Full_Test_App.Properties.Resources", this.GetType().Assembly);
+            resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
             InitializeComponent();
         }
 
         #region Private Member
+
+        /// <summary>
+        /// Resource manager for localized strings.
+        /// </summary>
         private System.Resources.ResourceManager resources;
+
+        /// <summary>
+        /// The value to write, as string, for WriteDataRequest.
+        /// </summary>
         private string ValuetoWrite = string.Empty;
+
+        /// <summary>
+        /// Indicates whether control initialization is still in progress.
+        /// </summary>
         private bool InitInProgress = false;
+
+        /// <summary>
+        /// Determines if write operation is enabled in this dialog.
+        /// </summary>
         private bool withWriteOption = true;
+
         #endregion
 
         #region internal member
+
+        /// <summary>
+        /// The result request item (ReadDataRequest or WriteDataRequest), set after configuration.
+        /// </summary>
         internal object RequestItem = null;
+
         #endregion
 
+        /// <summary>
+        /// Loads control values, initializes combo boxes, sets resource strings and UI logic.
+        /// </summary>
         private void CreateRequest_Load(object sender, EventArgs e)
         {
             try
@@ -42,7 +74,7 @@ namespace PLCCom_Full_Test_App.Classic
 
                 cmbDataType.Text = eDataType.BYTE.ToString();
 
-                //set the culture combobox
+                // Set the codepage (encoding) combobox
                 List<String> lisEncodings = new List<String>();
                 foreach (EncodingInfo ei in Encoding.GetEncodings())
                 {
@@ -53,6 +85,7 @@ namespace PLCCom_Full_Test_App.Classic
 
                 rbWrite.Enabled = this.withWriteOption;
 
+                // Set resource-based UI labels
                 this.grpAddress.Text = resources.GetString("grpAddress_Text");
                 this.lblDataType.Text = resources.GetString("lblDataType_Text");
                 this.lblReadAdress.Text = resources.GetString("lblReadAddress_Text");
@@ -68,7 +101,7 @@ namespace PLCCom_Full_Test_App.Classic
                 this.lblMode.Text = resources.GetString("lblMode_Text");
                 this.rbRead.Text = resources.GetString("read");
                 this.rbWrite.Text = resources.GetString("write");
-
+                this.chkAllowMultipleBits.Text = resources.GetString("chkAllowMultipleBits_Text");
             }
             catch (Exception ex)
             {
@@ -81,42 +114,46 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
-
-
-
+        /// <summary>
+        /// Updates the request item according to current UI input and mode.
+        /// </summary>
         private void CreateRequest()
         {
-            //initialization in progress
+            // If controls are initializing, do nothing yet
             if (InitInProgress)
                 return;
 
             switch (rbRead.Checked)
             {
                 case true:
-                    //create read request
+                    // Create and set read request
                     CreateReadRequest();
                     break;
                 case false:
-                    //create write request
+                    // Create and set write request
                     CreateWriteRequest();
                     break;
             }
             txtResult.Text = this.RequestItem.ToString();
         }
 
+        /// <summary>
+        /// Creates and sets a ReadDataRequest from current UI values.
+        /// </summary>
         private void CreateReadRequest()
         {
             try
             {
-                //declare a ReadDataRequest object and
-                //set the request parameters
-                ReadDataRequest readDataRequest = new ReadDataRequest((eRegion)cmbRegion.SelectedValue,   //Region
-                                                                       int.Parse(txtDB.Text),             //DB / only for datablock operations otherwise 0
-                                                                       int.Parse(txtReadAddress.Text),      //read start address
-                                                                       (eDataType)cmbDataType.SelectedValue,//desired datatype
-                                                                       int.Parse(txtQuantity.Text) * int.Parse(txtFactor.Text), //Quantity of reading values
-                                                                       byte.Parse(txtBit.Text),//Bit / only for bit opertions
-                                                                       Encoding.GetEncoding((string)cmbCodepage.SelectedItem)); //Optionally the Encoding for eventual string operations        
+                // Construct ReadDataRequest from current parameters
+                ReadDataRequest readDataRequest = new ReadDataRequest(
+                    (eRegion)cmbRegion.SelectedValue,         // Region
+                    int.Parse(txtDB.Text),                    // DB number (for DataBlock), 0 otherwise
+                    int.Parse(txtReadAddress.Text),           // Read start address
+                    (eDataType)cmbDataType.SelectedValue,     // Data type
+                    int.Parse(txtQuantity.Text) * int.Parse(txtFactor.Text), // Quantity
+                    byte.Parse(txtBit.Text),                  // Bit index (for bit ops)
+                    Encoding.GetEncoding((string)cmbCodepage.SelectedItem) // Optional encoding
+                );
 
                 this.RequestItem = readDataRequest;
             }
@@ -126,30 +163,32 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Creates and sets a WriteDataRequest from current UI values and input text.
+        /// </summary>
         private void CreateWriteRequest()
         {
             try
             {
-                //parse valuestring and add writable Data here
+                // Parse the value string and add writable data
                 Utilities.sValues_to_Write vtw = null;
                 vtw = Utilities.CheckValues(ValuetoWrite, (eDataType)cmbDataType.SelectedItem);
 
                 if (!vtw.ParseError)
                 {
+                    // Create WriteDataRequest from current parameters
+                    WriteDataRequest writeRequest = new WriteDataRequest(
+                        (eRegion)cmbRegion.SelectedValue,       // Region
+                        int.Parse(txtDB.Text),                  // DB number (for DataBlock), 0 otherwise
+                        int.Parse(txtWriteAddress.Text),        // Write start address
+                        byte.Parse(txtBit.Text),                // Bit index (for bit ops)
+                        Encoding.GetEncoding((string)cmbCodepage.SelectedItem) // Optional encoding
+                    );
 
-                    //declare a WriteRequest object and
-                    //set the request parameters
-                    WriteDataRequest writeRequest = new WriteDataRequest((eRegion)cmbRegion.SelectedValue,   //Region
-                                                                            int.Parse(txtDB.Text),             //DB / only for datablock operations otherwise 0
-                                                                            int.Parse(txtWriteAddress.Text),   //write start address
-                                                                            byte.Parse(txtBit.Text),//Bit / only for bit opertions
-                                                                            Encoding.GetEncoding((string)cmbCodepage.SelectedItem));//Optionally the Encoding for eventual string operations 
-
-
-                    //enable or disable multiple write bit mode
+                    // Enable or disable multiple write bit mode
                     writeRequest.AllowMultipleBits = chkAllowMultipleBits.Enabled && chkAllowMultipleBits.Checked;
 
-                    //add writable data to request
+                    // Add each parsed value to the buffer, using correct method for data type
                     foreach (object writevalue in vtw.values)
                     {
                         switch ((eDataType)cmbDataType.SelectedItem)
@@ -237,18 +276,16 @@ namespace PLCCom_Full_Test_App.Classic
                                 writeRequest.AddLTimeToBuffer((TimeSpan64)writevalue);
                                 break;
                             default:
-                                //abort message
+                                // Abort on unsupported data type
                                 MessageBox.Show(resources.GetString("wrong_datatype"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 break;
-
                         }
                     }
-
                     this.RequestItem = writeRequest;
                 }
                 else
                 {
-                    //parse error message
+                    // Parse error: show message and do not update request
                     MessageBox.Show(resources.GetString("ParseError"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -258,10 +295,12 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
-
+        /// <summary>
+        /// Handles switching between single and multiple value input fields.
+        /// </summary>
         private void chkSingleValue_CheckedChanged(object sender, EventArgs e)
         {
-            //switch between txtMultipleValues and txtSingleValues
+            // Switch between input controls depending on datatype and single/multi-value selection
             if ((eDataType)cmbDataType.SelectedItem == eDataType.BIT)
             {
                 txtSingleValues.Visible = false;
@@ -284,47 +323,57 @@ namespace PLCCom_Full_Test_App.Classic
             this.lblEnterValues.Text = chkSingleValue.Checked ?
                                         resources.GetString("lblValues_Text") :
                                         resources.GetString("lblMultipleValues_Text");
-
             CreateRequest();
         }
 
+        /// <summary>
+        /// Handles changes in the multiple numeric value input box.
+        /// </summary>
         private void txtMultipleNumericValues_TextChanged(object sender, EventArgs e)
         {
-            //set writable string
             ValuetoWrite = txtMultipleNumericValues.Text;
             CreateRequest();
         }
 
+        /// <summary>
+        /// Handles changes in the multiple boolean value input box.
+        /// </summary>
         private void txtMultipleBoolValues_TextChanged(object sender, EventArgs e)
         {
-            //set writable string
             ValuetoWrite = txtMultipleBoolValues.Text;
             CreateRequest();
         }
 
-
+        /// <summary>
+        /// Handles changes in the single value input box.
+        /// </summary>
         private void txtSingleValues_TextChanged(object sender, EventArgs e)
         {
-            //set writable string
             ValuetoWrite = txtSingleValues.Text;
             CreateRequest();
         }
 
+        /// <summary>
+        /// Handles the "Off" radio button for boolean values.
+        /// </summary>
         private void rbOff_CheckedChanged(object sender, EventArgs e)
         {
-            //set writable string
             ValuetoWrite = rbOn.Checked.ToString();
             CreateRequest();
         }
 
+        /// <summary>
+        /// Handles the "On" radio button for boolean values.
+        /// </summary>
         private void rbOn_CheckedChanged(object sender, EventArgs e)
         {
-            //set writable string
             ValuetoWrite = rbOn.Checked.ToString();
             CreateRequest();
         }
 
-
+        /// <summary>
+        /// Handles selection change of data type. Updates all dependent UI and options.
+        /// </summary>
         private void cmbDataType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((eDataType)cmbDataType.SelectedItem == eDataType.BIT)
@@ -378,9 +427,12 @@ namespace PLCCom_Full_Test_App.Classic
             CreateRequest();
         }
 
+        /// <summary>
+        /// Handles switching between read and write mode. Updates all related controls and calls CreateRequest.
+        /// </summary>
         private void rbRead_CheckedChanged(object sender, EventArgs e)
         {
-            //enable or diable input fields
+            // Enable/disable input fields according to selected operation
             grbWriteValues.Enabled = !rbRead.Checked;
             txtQuantity.Enabled = rbRead.Checked;
             rbRead.FlatStyle = rbRead.Checked ? FlatStyle.Flat : FlatStyle.Standard;
@@ -388,13 +440,18 @@ namespace PLCCom_Full_Test_App.Classic
             CreateRequest();
         }
 
+        /// <summary>
+        /// Handles region selection. Enables/disables the DB field accordingly.
+        /// </summary>
         private void cmbRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //enable or diable DB field 
             txtDB.Enabled = ((eRegion)cmbRegion.SelectedItem).Equals(eRegion.DataBlock);
             CreateRequest();
         }
 
+        /// <summary>
+        /// Handles codepage selection change and updates factor textbox accordingly.
+        /// </summary>
         private void cmbCodepage_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -408,36 +465,18 @@ namespace PLCCom_Full_Test_App.Classic
             CreateRequest();
         }
 
-        private void txtDB_TextChanged(object sender, EventArgs e)
-        {
-            CreateRequest();
-        }
+        // All following handlers simply call CreateRequest() on relevant input change:
 
-        private void txtReadAddress_TextChanged(object sender, EventArgs e)
-        {
-            CreateRequest();
-        }
+        private void txtDB_TextChanged(object sender, EventArgs e) => CreateRequest();
+        private void txtReadAddress_TextChanged(object sender, EventArgs e) => CreateRequest();
+        private void txtWriteAddress_TextChanged(object sender, EventArgs e) => CreateRequest();
+        private void txtBit_TextChanged(object sender, EventArgs e) => CreateRequest();
+        private void txtQuantity_TextChanged(object sender, EventArgs e) => CreateRequest();
+        private void txtFactor_TextChanged(object sender, EventArgs e) => CreateRequest();
 
-        private void txtWriteAddress_TextChanged(object sender, EventArgs e)
-        {
-            CreateRequest();
-        }
-
-        private void txtBit_TextChanged(object sender, EventArgs e)
-        {
-            CreateRequest();
-        }
-
-        private void txtQuantity_TextChanged(object sender, EventArgs e)
-        {
-            CreateRequest();
-        }
-
-        private void txtFactor_TextChanged(object sender, EventArgs e)
-        {
-            CreateRequest();
-        }
-
+        /// <summary>
+        /// Handles multiple bits checkbox. Shows warning and enables/disables relevant UI.
+        /// </summary>
         private void chkAllowMultipleBits_CheckedChanged(object sender, EventArgs e)
         {
             if (chkAllowMultipleBits.Checked)
@@ -457,15 +496,19 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Accepts the dialog and returns the configured request.
+        /// </summary>
         private void btnAcceptRequest_Click(object sender, EventArgs e)
         {
-            //close form
             this.DialogResult = DialogResult.OK;
         }
 
+        /// <summary>
+        /// Aborts the dialog and discards the configured request.
+        /// </summary>
         private void btnAbort_Click(object sender, EventArgs e)
         {
-            //close form and Abort
             this.DialogResult = DialogResult.Cancel;
         }
     }

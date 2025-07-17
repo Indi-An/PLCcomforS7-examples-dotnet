@@ -1,36 +1,59 @@
-﻿using System;
+﻿using PLCcom;
+using PLCcom.Core.S7Plus.DataTypes;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
-using PLCcom;
-using System.Linq;
-using PLCcom.Core.S7Plus.DataTypes;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PLCCom_Full_Test_App.Classic
 {
+    /// <summary>
+    /// Form for reading and writing data to a PLC device.
+    /// </summary>
     public partial class ReadWriteBox : Form
     {
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadWriteBox"/> class.
+        /// </summary>
+        /// <param name="mDevice">The PLCcomDevice to communicate with.</param>
         public ReadWriteBox(PLCcomDevice mDevice)
         {
-            //set ressources
-            resources = new System.Resources.ResourceManager("PLCCom_Full_Test_App.Properties.Resources", this.GetType().Assembly);
+            // Set resources
+            resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
             InitializeComponent();
             this.Device = mDevice;
         }
 
         #region Private Member
+
+        /// <summary>
+        /// The PLC device instance for communication.
+        /// </summary>
         private PLCcomDevice Device;
+
+        /// <summary>
+        /// Resource manager for localized strings.
+        /// </summary>
         private System.Resources.ResourceManager resources;
+
+        /// <summary>
+        /// Value to write to the PLC, as string.
+        /// </summary>
         private string ValuetoWrite = string.Empty;
         #endregion
 
+        /// <summary>
+        /// Handles the Load event of the ReadWriteBox form.
+        /// Initializes UI controls and resources.
+        /// </summary>
         private void ReadWriteBox_Load(object sender, EventArgs e)
         {
             try
@@ -45,7 +68,7 @@ namespace PLCCom_Full_Test_App.Classic
 
                 cmbDataType.Text = eDataType.BYTE.ToString();
 
-                //set the culture combobox
+                // Set the culture/codepage combobox
                 List<String> lisEncodings = new List<String>();
                 foreach (EncodingInfo ei in Encoding.GetEncodings())
                 {
@@ -54,7 +77,7 @@ namespace PLCCom_Full_Test_App.Classic
                 cmbCodepage.DataSource = lisEncodings;
                 cmbCodepage.SelectedItem = "us-ascii";
 
-
+                // Set UI texts from resources
                 this.lblLog.Text = resources.GetString("lblLog_Text");
                 this.grpAddress.Text = resources.GetString("grpAddress_Text");
                 this.grpAction.Text = resources.GetString("grpAction_Text");
@@ -74,7 +97,6 @@ namespace PLCCom_Full_Test_App.Classic
                 this.lblMode.Text = resources.GetString("lblMode_Text");
                 this.rbRead.Text = resources.GetString("rbRead_Text");
                 this.rbWrite.Text = resources.GetString("rbWrite_Text");
-
             }
             catch (Exception ex)
             {
@@ -82,56 +104,89 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
-
+        /// <summary>
+        /// Handles the Click event of the Close button.
+        /// Closes the dialog.
+        /// </summary>
         private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the Click event of the Execute button.
+        /// Executes either the read or write operation.
+        /// </summary>
         private void btnExecute_Click(object sender, EventArgs e)
         {
-            switch (rbRead.Checked)
+            try
             {
-                case true:
-                    //execute read
-                    ExecRead();
-                    break;
-                case false:
-                    //execute write
-                    ExecWrite();
-                    break;
+                Cursor.Current = Cursors.WaitCursor;
+                switch (rbRead.Checked)
+                {
+                    case true:
+                        // Execute read operation
+                        ExecRead();
+                        break;
+                    case false:
+                        // Execute write operation
+                        ExecWrite();
+                        break;
+                }
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
             }
         }
 
+        /// <summary>
+        /// Performs the read operation from the PLC and displays results and logs.
+        /// </summary>
         private void ExecRead()
         {
             try
             {
                 Device.Connecttimeout = 5000;
                 Device.Readtimeout = 5000;
-                //declare a ReadDataRequest object and
-                //set the request parameters
-                ReadDataRequest myReadDataRequest = new ReadDataRequest((eRegion)cmbRegion.SelectedValue,   //Region
-                                                                       int.Parse(txtDB.Text),             //DB / only for datablock operations otherwise 0
-                                                                       int.Parse(txtReadAddress.Text),      //read start adress
-                                                                       (eDataType)cmbDataType.SelectedValue,//desired datatype
-                                                                       int.Parse(txtQuantity.Text) * int.Parse(txtFactor.Text), //Quantity of reading values
-                                                                       byte.Parse(txtBit.Text),//Bit / only for bit opertions
-                                                                       Encoding.GetEncoding((string)cmbCodepage.SelectedItem)); //Optionally the Encoding for eventual string operations           
+                // Declare a ReadDataRequest object and set the request parameters
+                ReadDataRequest myReadDataRequest = new ReadDataRequest(
+                    (eRegion)cmbRegion.SelectedValue,          // Region
+                    int.Parse(txtDB.Text),                    // DB (for datablock operations), otherwise 0
+                    int.Parse(txtReadAddress.Text),           // Read start address
+                    (eDataType)cmbDataType.SelectedValue,     // Desired data type
+                    int.Parse(txtQuantity.Text) * int.Parse(txtFactor.Text), // Quantity of reading values
+                    byte.Parse(txtBit.Text),                  // Bit (for bit operations)
+                    Encoding.GetEncoding((string)cmbCodepage.SelectedItem)); // Encoding for string operations
 
+                Stopwatch plcExecutionTimer = Stopwatch.StartNew();
 
-                //read from device
+                // Read from device
                 ReadDataResult res = Device.ReadData(myReadDataRequest);
 
-                //starting evaluate results
-                //set diagnostic output
+                plcExecutionTimer.Stop();
+
+                lvValues.Items.Clear();
                 lvLog.Items.Clear();
+
+                // Start evaluating results and set diagnostic output
+                lvLog.BeginUpdate();
+
                 ListViewItem lvi = new ListViewItem(DateTime.Now.ToString() + " Summary: " + res.ToString());
                 lvi.ForeColor = res.Quality == OperationResult.eQuality.GOOD ? Color.Black : Color.Red;
                 lvLog.Items.Add(lvi);
+
+                if (res.Quality == OperationResult.eQuality.GOOD)
+                {
+                    lvi = new ListViewItem(DateTime.Now.ToString() + $" Plc Access Done! Plc Execution Time: {plcExecutionTimer.ElapsedMilliseconds} ms. Start loading results in listview...");
+                    lvi.ForeColor = Color.Blue;
+                    lvLog.Items.Add(lvi);
+                }
+
                 lvi = new ListViewItem(DateTime.Now.ToString() + " Message: " + res.Message);
                 lvi.ForeColor = res.Quality == OperationResult.eQuality.GOOD ? Color.Black : Color.Red;
                 lvLog.Items.Add(lvi);
+
                 foreach (LogEntry le in res.GetDiagnosticLog())
                 {
                     lvi = new ListViewItem(le.ToString());
@@ -139,22 +194,32 @@ namespace PLCCom_Full_Test_App.Classic
                     lvLog.Items.Add(lvi);
                 }
 
+                lvLog.EndUpdate();
+                lvLog.Refresh();
 
-                //evaluate values
-                lvValues.Items.Clear();
+                // Evaluate values
+                lvValues.BeginUpdate();
                 lvValues.Columns[1].Text = "Position";
                 if (res.Quality == OperationResult.eQuality.GOOD)
                 {
                     int Position = 0;
-                    foreach (Object item in res.GetValues())
+                    var resultValues = res.GetValues();
+
+                    var itemsList = new List<ListViewItem>();
+
+                    foreach (var value in resultValues)
                     {
                         lvi = new ListViewItem();
                         lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, Position++.ToString()));
-                        lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, item.ToString()));
-                        lvi.ForeColor = (item is bool && (bool)item == true ? Color.Blue : Color.Black);
-                        lvValues.Items.Add(lvi);
+                        lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, value.ToString()));
+                        lvi.ForeColor = (value is bool && (bool)value == true ? Color.Blue : Color.Black);
+                        lvi.ForeColor = (value is bool && (bool)value == true ? Color.Blue : Color.Black);
+                        itemsList.Add(lvi);
                     }
+
+                    lvValues.Items.AddRange(itemsList.ToArray());
                 }
+                lvValues.EndUpdate();
             }
             catch (Exception ex)
             {
@@ -162,33 +227,34 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Performs the write operation to the PLC.
+        /// </summary>
         private void ExecWrite()
         {
             try
             {
-                //parse valuestring and add writable Data here
+                // Parse value string and add writable data here
                 Utilities.sValues_to_Write vtw = null;
                 vtw = Utilities.CheckValues(ValuetoWrite, (eDataType)cmbDataType.SelectedItem);
 
                 if (!vtw.ParseError)
                 {
-                    //last warning
+                    // Last warning before write
                     if (MessageBox.Show(resources.GetString("Continue_Warning_Write") +
                                       Environment.NewLine +
                                       resources.GetString("Continue_Question")
                                       , resources.GetString("Important_question"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
+                        // Declare a WriteRequest object and set the request parameters
+                        WriteDataRequest myWriteRequest = new WriteDataRequest(
+                            (eRegion)cmbRegion.SelectedValue,    // Region
+                            int.Parse(txtDB.Text),               // DB (for datablock operations), otherwise 0
+                            int.Parse(txtWriteAddress.Text),     // Write start address
+                            byte.Parse(txtBit.Text),             // Bit (for bit operations)
+                            Encoding.GetEncoding((string)cmbCodepage.SelectedItem)); // Encoding for string operations
 
-                        //declare a WriteRequest object and
-                        //set the request parameters
-                        WriteDataRequest myWriteRequest = new WriteDataRequest((eRegion)cmbRegion.SelectedValue,   //Region
-                                                                                int.Parse(txtDB.Text),             //DB / only for datablock operations otherwise 0
-                                                                                int.Parse(txtWriteAddress.Text),   //write start adress
-                                                                                byte.Parse(txtBit.Text),//Bit / only for bit opertions
-                                                                                Encoding.GetEncoding((string)cmbCodepage.SelectedItem));//Optionally the Encoding for eventual string operations         
-
-
-                        //add writable data to request
+                        // Add writable data to request
                         foreach (object writevalue in vtw.values)
                         {
                             switch ((eDataType)cmbDataType.SelectedItem)
@@ -242,17 +308,12 @@ namespace PLCCom_Full_Test_App.Classic
                                 case eDataType.DATE_AND_TIME:
                                     myWriteRequest.AddDateAndTimeToBuffer((DateTime)writevalue);
                                     break;
-
                                 case eDataType.DTL:
                                     myWriteRequest.AddLDtlToBuffer((DateTime64)writevalue);
                                     break;
-
-
-
                                 case eDataType.LDATE_AND_TIME:
                                     myWriteRequest.AddLDateAndTimeToBuffer((DateTime64)writevalue);
                                     break;
-
                                 case eDataType.S5TIME:
                                     myWriteRequest.AddS5TimeToBuffer((TimeSpan)writevalue);
                                     break;
@@ -268,34 +329,29 @@ namespace PLCCom_Full_Test_App.Classic
                                 case eDataType.TIME_OF_DAY:
                                     myWriteRequest.AddTimeOfDayToBuffer((TimeSpan)writevalue);
                                     break;
-
                                 case eDataType.LTIME_OF_DAY:
                                     myWriteRequest.AddLTimeOfDayToBuffer((TimeSpan64)writevalue);
                                     break;
-
                                 case eDataType.DATE:
                                     myWriteRequest.AddDateToBuffer((DateTime)writevalue);
                                     break;
                                 case eDataType.TIME:
                                     myWriteRequest.AddTimeToBuffer((TimeSpan)writevalue);
                                     break;
-
                                 case eDataType.LTIME:
                                     myWriteRequest.AddLTimeToBuffer((TimeSpan64)writevalue);
                                     break;
-
                                 default:
-                                    //abort message
+                                    // Abort on wrong data type
                                     MessageBox.Show(resources.GetString("wrong_datatype") + " " + resources.GetString("operation_aborted"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     return;
                             }
                         }
 
-                        //write
+                        // Write data to PLC
                         WriteDataResult res = Device.WriteData(myWriteRequest);
 
-                        //starting evaluate results
-                        //set diagnostic output
+                        // Evaluate results and show diagnostic output
                         lvLog.Items.Clear();
                         ListViewItem lvi = new ListViewItem(DateTime.Now.ToString() + " Summary: " + res.ToString());
                         lvi.ForeColor = res.Quality == OperationResult.eQuality.GOOD ? Color.Black : Color.Red;
@@ -306,17 +362,16 @@ namespace PLCCom_Full_Test_App.Classic
                             lvi.ForeColor = le.getLogLevel() == eLogLevel.Information ? Color.Black : Color.Red;
                             lvLog.Items.Add(lvi);
                         }
-
                     }
                     else
                     {
-                        //abort message
+                        // Write operation aborted by user
                         MessageBox.Show(resources.GetString("operation_aborted"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    //parse error message
+                    // Value parsing error
                     lvLog.Items.Clear();
                     ListViewItem lvi = new ListViewItem(DateTime.Now.ToString() + " " + resources.GetString("ParseError"));
                     lvi.ForeColor = Color.Red;
@@ -330,10 +385,13 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
-
+        /// <summary>
+        /// Handles the CheckedChanged event for chkSingleValue.
+        /// Switches between single value and multiple values input controls.
+        /// </summary>
         private void chkSingleValue_CheckedChanged(object sender, EventArgs e)
         {
-            //switch between txtMultipleValues and txtSingleValues
+            // Switch between txtMultipleValues and txtSingleValues
             if ((eDataType)cmbDataType.SelectedItem == eDataType.BIT)
             {
                 txtSingleValues.Visible = false;
@@ -356,45 +414,65 @@ namespace PLCCom_Full_Test_App.Classic
             this.lblEnterValues.Text = chkSingleValue.Checked ?
                                         resources.GetString("lblValues_Text") :
                                         resources.GetString("lblMultipleValues_Text");
-
-
         }
 
+        /// <summary>
+        /// Handles the TextChanged event for txtMultipleNumericValues.
+        /// Sets the writable string value.
+        /// </summary>
         private void txtMultipleNumericValues_TextChanged(object sender, EventArgs e)
         {
-            //set writable string
+            // Set writable string
             ValuetoWrite = txtMultipleNumericValues.Text;
         }
 
+        /// <summary>
+        /// Handles the TextChanged event for txtMultipleBoolValues.
+        /// Sets the writable string value.
+        /// </summary>
         private void txtMultipleBoolValues_TextChanged(object sender, EventArgs e)
         {
-            //set writable string
+            // Set writable string
             ValuetoWrite = txtMultipleBoolValues.Text;
         }
 
-
+        /// <summary>
+        /// Handles the TextChanged event for txtSingleValues.
+        /// Sets the writable string value.
+        /// </summary>
         private void txtSingleValues_TextChanged(object sender, EventArgs e)
         {
-            //set writable string
+            // Set writable string
             ValuetoWrite = txtSingleValues.Text;
         }
 
+        /// <summary>
+        /// Handles the CheckedChanged event for rbOff.
+        /// Sets the writable string value.
+        /// </summary>
         private void rbOff_CheckedChanged(object sender, EventArgs e)
         {
-            //set writable string
+            // Set writable string
             ValuetoWrite = rbOn.Checked.ToString();
         }
 
+        /// <summary>
+        /// Handles the CheckedChanged event for rbOn.
+        /// Sets the writable string value.
+        /// </summary>
         private void rbOn_CheckedChanged(object sender, EventArgs e)
         {
-            //set writable string
+            // Set writable string
             ValuetoWrite = rbOn.Checked.ToString();
         }
 
-
+        /// <summary>
+        /// Handles the Click event for btnSaveLogtoClipboard.
+        /// Copies the diagnostic log to the clipboard.
+        /// </summary>
         private void btnSaveLogtoClipboard_Click(object sender, EventArgs e)
         {
-            //copy diagnostic log to clipboard
+            // Copy diagnostic log to clipboard
             StringBuilder sb = new StringBuilder();
             foreach (ListViewItem lvi in lvLog.Items)
             {
@@ -407,9 +485,12 @@ namespace PLCCom_Full_Test_App.Classic
             }
         }
 
+        /// <summary>
+        /// Handles the Click event for btnSaveLogtoFile.
+        /// Saves the diagnostic log to a file.
+        /// </summary>
         private void btnSaveLogtoFile_Click(object sender, EventArgs e)
         {
-
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PLCcom", "ForS7");
 
             // Check if the directory exists, if not, create it
@@ -426,7 +507,7 @@ namespace PLCCom_Full_Test_App.Classic
 
             if (mySaveDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrEmpty(mySaveDialog.FileName))
             {
-                //copy diagnostic log to file
+                // Copy diagnostic log to file
                 StringBuilder sb = new StringBuilder();
                 foreach (ListViewItem lvi in lvLog.Items)
                 {
@@ -449,11 +530,15 @@ namespace PLCCom_Full_Test_App.Classic
             }
             else
             {
-                //abort message
+                // Save operation aborted
                 MessageBox.Show(resources.GetString("operation_aborted"), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event for cmbDataType.
+        /// Adjusts UI input controls depending on the data type selection.
+        /// </summary>
         private void cmbDataType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((eDataType)cmbDataType.SelectedItem == eDataType.BIT)
@@ -498,25 +583,41 @@ namespace PLCCom_Full_Test_App.Classic
                                         resources.GetString("lblMultipleValues_Text");
         }
 
+        /// <summary>
+        /// Handles the FormClosing event for ReadWriteBox.
+        /// Decrements the open dialog counter in Main.
+        /// </summary>
         private void ReadWriteBox_FormClosing(object sender, FormClosingEventArgs e)
         {
             Main.CountOpenDialogs--;
         }
 
+        /// <summary>
+        /// Handles the CheckedChanged event for rbRead.
+        /// Enables or disables input fields depending on read or write mode.
+        /// </summary>
         private void rbRead_CheckedChanged(object sender, EventArgs e)
         {
-            //enable or diable input fields
+            // Enable or disable input fields
             grbWriteValues.Enabled = !rbRead.Checked;
             lvValues.Enabled = rbRead.Checked;
             txtQuantity.Enabled = rbRead.Checked;
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event for cmbRegion.
+        /// Enables or disables the DB field based on selected region.
+        /// </summary>
         private void cmbRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //enable or diable DB field 
+            // Enable or disable DB field 
             txtDB.Enabled = ((eRegion)cmbRegion.SelectedItem).Equals(eRegion.DataBlock);
         }
 
+        /// <summary>
+        /// Handles the SelectedIndexChanged event for cmbCodepage.
+        /// Updates the factor text field depending on the codepage's byte length.
+        /// </summary>
         private void cmbCodepage_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -528,7 +629,5 @@ namespace PLCCom_Full_Test_App.Classic
                 MessageBox.Show(ex.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Hand);
             }
         }
-
-
     }
 }

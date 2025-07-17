@@ -16,12 +16,17 @@ using PLCCom_Full_Test_App.Symbolic;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Collections.Generic;
 
-
 namespace PLCCom_Full_Test_App.Symbolic
 {
+    /// <summary>
+    /// WinForms form to display, subscribe, and acknowledge PLC alarms using the PLCcom library.
+    /// </summary>
     public partial class AlarmFunctions : Form
     {
-
+        /// <summary>
+        /// Initializes a new instance of the AlarmFunctions form.
+        /// </summary>
+        /// <param name="Device">The SymbolicDevice to operate with.</param>
         public AlarmFunctions(SymbolicDevice Device)
         {
             InitializeComponent();
@@ -29,18 +34,24 @@ namespace PLCCom_Full_Test_App.Symbolic
         }
 
         #region Private Member
+        // Reference to the symbolic device for alarm operations.
         SymbolicDevice device;
+        // Resource manager for UI localization.
         System.Resources.ResourceManager resources;
         #endregion
 
-
+        /// <summary>
+        /// Handles form load. Initializes UI resources, labels, and subscribes to alarms.
+        /// </summary>
         private void AlarmFunctions_Load(object sender, EventArgs e)
         {
             try
             {
+                // Show device type in the UI
                 lblDeviceType.Text = "DeviceType: " + device.GetType().ToString();
 
-                resources = new System.Resources.ResourceManager("PLCCom_Full_Test_App.Properties.Resources", this.GetType().Assembly);
+                // Load UI strings from resources for localization
+                resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
 
                 this.btnClose.Text = resources.GetString("btnClose_Text");
                 this.btnAcknowledge.Text = resources.GetString("btnAcknowledge_Text");
@@ -54,7 +65,9 @@ namespace PLCCom_Full_Test_App.Symbolic
                 this.colInfoTimestamp.Text = resources.GetString("colTimestamp_Text");
                 this.colInfoAlarmText.Text = resources.GetString("colAlarmText_Text");
 
+                // Load current active alarms into the list view
                 LoadAlarms();
+                // Subscribe to alarm notification events from the device
                 SubscribeAlarms();
             }
             catch (Exception ex)
@@ -63,58 +76,56 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
         }
 
+        /// <summary>
+        /// Loads currently active alarms from the device and adds them to the list view.
+        /// </summary>
         private void LoadAlarms()
         {
             try
             {
-
-
+                // Create request for browsing alarms, using current culture
                 BrowseAlarmsRequest browseAlarmsRequest = new BrowseAlarmsRequest(CultureInfo.CurrentCulture);
 
                 BrowseAlarmsResult result = device.BrowseActiveAlarms(browseAlarmsRequest);
 
                 if (result.IsQualityGood())
                 {
-
+                    // Sort alarms by priority and add to the ListView
                     foreach (AlarmNotification alarm in result.getAlarms().OrderBy(a => a.AlarmPriority))
                     {
-
                         ListViewItem lvi = new ListViewItem(alarm.AlarmId.ToString());
                         lvi.Tag = alarm;
 
-                        //MessageType
+                        // Add message type as a subitem
                         lvi.SubItems.Add(alarm.MessageType.ToString());
-
-                        //State
+                        // Add state as a subitem
                         lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarm.AlarmState.ToString()));
-
-                        //AlarmId
+                        // Add alarm number as a subitem
                         lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarm.AlarmNumber.ToString()));
-
-                        //Coming Timestamp
+                        // Add timestamp as a subitem (converted to local time)
                         lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarm.TimeStampComing.GetDateTime().ToLocalTime().ToString()));
 
                         CultureInfo textCultureInfo = null;
 
-                        //get the alarm text with the right language
+                        // Determine correct language for the alarm text
                         if (alarm.TextCultureInfos.ContainsKey(Thread.CurrentThread.CurrentUICulture.LCID))
                             textCultureInfo = Thread.CurrentThread.CurrentUICulture;
                         else
                             textCultureInfo = alarm.TextCultureInfos.FirstOrDefault().Value;
 
-                        //Alarmtext
+                        // Get alarm text in selected language
                         var text = alarm.AlarmTextEntries.Where(a => a.Culture.LCID == textCultureInfo.LCID);
                         lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, text.Where(t => t.AlarmTextType == eAlarmTextType.AlarmText).First().Text));
 
-
+                        // Add the fully populated ListViewItem to the alarms list view
                         lvAlarms.Items.Add(lvi);
                     }
                 }
                 else
                 {
+                    // Show error if alarms could not be loaded
                     MessageBox.Show(resources.GetString("error_browsing_alarms") + Environment.NewLine + result.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
             catch (Exception ex)
             {
@@ -122,12 +133,15 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
         }
 
+        /// <summary>
+        /// Subscribes to device alarm notification events.
+        /// </summary>
         private void SubscribeAlarms()
         {
             try
             {
+                // Attach event handler for real-time alarm notifications
                 device.AlarmNotification += Device_AlarmNotification;
-
             }
             catch (Exception ex)
             {
@@ -135,6 +149,10 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
         }
 
+        /// <summary>
+        /// Event handler for receiving real-time alarm notifications from the device.
+        /// Handles alarm list view updates and removal.
+        /// </summary>
         private void Device_AlarmNotification(object sender, AlarmNotificationEventArgs e)
         {
             AlarmNotification alarmNotification = e.Alarm;
@@ -145,51 +163,39 @@ namespace PLCCom_Full_Test_App.Symbolic
                     case eAlarmMessageType.AcknowledgeableAlarm:
                     case eAlarmMessageType.NonAcknowledgeableAlarm:
                         {
+                            // Remove alarm from list if it is no longer active or has been canceled
                             if (alarmNotification.AlarmState == eAlarmState.NotActive ||
                                 alarmNotification.AlarmState == eAlarmState.Canceled)
                             {
-                                //remove the alarm from the list
                                 bool gotRemoved = lvAlarms.RemoveItemSafe(item => item.Text == alarmNotification.AlarmId.ToString());
                             }
                             else
                             {
-
-                                // is there an Item to update?
+                                // Find existing alarm item(s) to update in the list view
                                 List<ListViewItem> foundItems = lvAlarms.FindItemsSafe(item => (string)item.Text == alarmNotification.AlarmId.ToString());
 
                                 if (foundItems.Count > 0)
                                 {
-                                    //Update listview item
+                                    // Update listview item for existing alarm
                                     foreach (ListViewItem lvi in foundItems)
                                     {
-
                                         bool success = lvAlarms.UpdateItemSafe(
                                             item => item.Text == alarmNotification.AlarmId.ToString(),
                                             old =>
                                             {
                                                 var lvi = new ListViewItem(alarmNotification.AlarmId.ToString());
                                                 lvi.Tag = alarmNotification;
-                                                //MessageType
                                                 lvi.SubItems.Add(alarmNotification.MessageType.ToString());
-
-                                                //State
                                                 lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarmNotification.AlarmState.ToString()));
-
-                                                //AlarmId
                                                 lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarmNotification.AlarmNumber.ToString()));
-
-                                                //Coming Timestamp
                                                 lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarmNotification.TimeStampComing?.GetDateTime().ToLocalTime().ToString() ?? String.Empty));
 
                                                 CultureInfo textCultureInfo = null;
-
-                                                //get the alarm text with the right language
                                                 if (alarmNotification.TextCultureInfos.ContainsKey(Thread.CurrentThread.CurrentUICulture.LCID))
                                                     textCultureInfo = Thread.CurrentThread.CurrentUICulture;
                                                 else
                                                     textCultureInfo = alarmNotification.TextCultureInfos.FirstOrDefault().Value;
 
-                                                //Alarmtext
                                                 var newAlarmtext = alarmNotification.AlarmTextEntries.Where(a => a.Culture.LCID == textCultureInfo.LCID);
 
                                                 if (newAlarmtext.Any())
@@ -198,39 +204,27 @@ namespace PLCCom_Full_Test_App.Symbolic
                                                 return lvi;
                                             }
                                         );
-
                                     }
                                 }
                                 else
                                 {
-
+                                    // No matching alarm item, add new alarm to the list view
                                     ListViewItem lvi = new ListViewItem(alarmNotification.AlarmId.ToString());
                                     lvi.Tag = alarmNotification;
 
-                                    //MessageType
                                     lvi.SubItems.Add(alarmNotification.MessageType.ToString());
-
-                                    //State
                                     lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarmNotification.AlarmState.ToString()));
-
-                                    //AlarmId
                                     lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarmNotification.AlarmNumber.ToString()));
-
-                                    //Coming Timestamp
                                     lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarmNotification.TimeStampComing.GetDateTime().ToLocalTime().ToString()));
 
                                     CultureInfo textCultureInfo = null;
-
-                                    //get the alarm text with the right language
                                     if (alarmNotification.TextCultureInfos.ContainsKey(Thread.CurrentThread.CurrentUICulture.LCID))
                                         textCultureInfo = Thread.CurrentThread.CurrentUICulture;
                                     else
                                         textCultureInfo = alarmNotification.TextCultureInfos.FirstOrDefault().Value;
 
-                                    //Alarmtext
                                     var text = alarmNotification.AlarmTextEntries.Where(a => a.Culture.LCID == textCultureInfo.LCID);
                                     lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, text.Where(t => t.AlarmTextType == eAlarmTextType.AlarmText).First().Text));
-
 
                                     lvAlarms.AddItemSafe(lvi);
                                 }
@@ -239,24 +233,19 @@ namespace PLCCom_Full_Test_App.Symbolic
                         break;
                     case eAlarmMessageType.InformationNotification:
                         {
+                            // Add information notification to the informations list view
                             ListViewItem lvi = new ListViewItem(alarmNotification.AlarmId.ToString());
                             lvi.Tag = alarmNotification;
 
-                            //MessageType
                             lvi.SubItems.Add(alarmNotification.MessageType.ToString());
-
-                            //Coming Timestamp
                             lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, alarmNotification.TimeStampComing.GetDateTime().ToLocalTime().ToString()));
 
                             CultureInfo textCultureInfo = null;
-
-                            //get the alarm text with the right language
                             if (alarmNotification.TextCultureInfos.ContainsKey(Thread.CurrentThread.CurrentUICulture.LCID))
                                 textCultureInfo = Thread.CurrentThread.CurrentUICulture;
                             else
                                 textCultureInfo = alarmNotification.TextCultureInfos.FirstOrDefault().Value;
 
-                            //Alarmtext
                             var text = alarmNotification.AlarmTextEntries.Where(a => a.Culture.LCID == textCultureInfo.LCID);
                             lvi.SubItems.Add(new ListViewItem.ListViewSubItem(lvi, text.Where(t => t.AlarmTextType == eAlarmTextType.AlarmText).First().Text));
 
@@ -269,32 +258,35 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
         }
 
-
-
+        /// <summary>
+        /// Handles Close button click event. Unsubscribes alarm event handler and closes the form.
+        /// </summary>
         private void btnClose_Click(object sender, EventArgs e)
         {
             device.AlarmNotification -= Device_AlarmNotification;
             this.Close();
         }
 
-
-
+        /// <summary>
+        /// Handles the FormClosing event by decrementing the open dialog counter in the main form.
+        /// </summary>
         private void AlarmFunctions_FormClosing(object sender, FormClosingEventArgs e)
         {
             Main.CountOpenDialogs--;
         }
 
+        /// <summary>
+        /// Handles double-click events on the alarms list view. Opens details for the clicked alarm.
+        /// </summary>
         private void lvAlarms_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             try
             {
-                // Determines the ListViewItem under the click point
+                // Get the item under the mouse pointer
                 var hit = lvAlarms.HitTest(e.Location);
                 if (hit.Item != null)
                 {
-                    // Here you have the clicked item, even if it was already selected
                     AlarmNotification alarm = (AlarmNotification)hit.Item.Tag;
-
                     AlarmDetails alarmDetails = new AlarmDetails(alarm, this.resources);
                     alarmDetails.Show(this);
                 }
@@ -305,18 +297,18 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
         }
 
-
+        /// <summary>
+        /// Handles double-click events on the informations list view. Opens details for the clicked information notification.
+        /// </summary>
         private void lvInformations_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             try
             {
-                // Determines the ListViewItem under the click point
+                // Get the item under the mouse pointer
                 var hit = lvInformations.HitTest(e.Location);
                 if (hit.Item != null)
                 {
-                    // Here you have the clicked item, even if it was already selected
                     AlarmNotification alarm = (AlarmNotification)hit.Item.Tag;
-
                     AlarmDetails alarmDetails = new AlarmDetails(alarm, this.resources);
                     alarmDetails.Show(this);
                 }
@@ -327,19 +319,20 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
         }
 
+        /// <summary>
+        /// Handles the Acknowledge button click event. Acknowledges all selected alarms.
+        /// </summary>
         private void btnAcknowledge_Click(object sender, EventArgs e)
         {
             try
             {
                 if (lvAlarms.SelectedItems.Count > 0)
                 {
-
                     var items = lvAlarms.SelectedItems;
                     if (items.Count > 0)
                     {
                         foreach (ListViewItem item in items)
                         {
-                            // Here you have the clicked item, even if it was already selected
                             AlarmNotification alarm = (AlarmNotification)item.Tag;
                             OperationResult res = device.AckAlarm(alarm.AlarmId);
 
@@ -350,7 +343,6 @@ namespace PLCCom_Full_Test_App.Symbolic
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -358,19 +350,22 @@ namespace PLCCom_Full_Test_App.Symbolic
             }
         }
 
+        /// <summary>
+        /// Handles selection changes in the alarms list view.
+        /// Enables or disables the acknowledge button depending on selection.
+        /// </summary>
         private void lvAlarms_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-
                 System.Windows.Forms.ListView listView = (System.Windows.Forms.ListView)sender;
                 var selectedItems = listView.SelectedItems;
 
+                // Enable the acknowledge button only if any selected alarm is acknowledgeable
                 if (selectedItems.Cast<ListViewItem>().Select(l => (l.Tag as AlarmNotification)).Where(l => l.MessageType == eAlarmMessageType.AcknowledgeableAlarm).Any())
                     btnAcknowledge.Enabled = true;
                 else
                     btnAcknowledge.Enabled = false;
-
             }
             catch (Exception ex)
             {

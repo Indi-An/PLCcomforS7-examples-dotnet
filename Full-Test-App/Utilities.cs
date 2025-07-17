@@ -8,7 +8,7 @@ namespace PLCCom_Full_Test_App
 {
     class Utilities
     {
-        [DebuggerStepThrough()]
+         [DebuggerStepThrough()]
         internal static sValues_to_Write CheckValues(String ValueString, PLCcom.eDataType ValueType)
         {
             sValues_to_Write Result = new sValues_to_Write();
@@ -57,7 +57,7 @@ namespace PLCCom_Full_Test_App
                     {
                         int nanoseconds = int.Parse(nanoPart, CultureInfo.InvariantCulture);
 
-                        Result.values.Add(new DateTime64(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, dt.Second, nanoseconds / 1_000_000, (nanoseconds / 1_000) % 1_000, nanoseconds % 1_000));
+                        Result.values.Add( new DateTime64(dt.Year,dt.Month, dt.Day, dt.Hour, dt.Minute,dt.Second, nanoseconds / 1_000_000, (nanoseconds / 1_000) % 1_000, nanoseconds % 1_000));
                     }
                     else
                     {

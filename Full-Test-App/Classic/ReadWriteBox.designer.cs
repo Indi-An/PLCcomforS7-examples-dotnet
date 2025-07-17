@@ -112,9 +112,11 @@
             grpAddress.Controls.Add(lblReadAdress);
             grpAddress.Controls.Add(lblDataType);
             grpAddress.Controls.Add(cmbDataType);
-            grpAddress.Location = new System.Drawing.Point(12, 65);
+            grpAddress.Location = new System.Drawing.Point(14, 75);
+            grpAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             grpAddress.Name = "grpAddress";
-            grpAddress.Size = new System.Drawing.Size(656, 253);
+            grpAddress.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            grpAddress.Size = new System.Drawing.Size(765, 292);
             grpAddress.TabIndex = 87;
             grpAddress.TabStop = false;
             grpAddress.Text = "request";
@@ -123,9 +125,10 @@
             // 
             txtFactor.Enabled = false;
             txtFactor.ForeColor = System.Drawing.SystemColors.HotTrack;
-            txtFactor.Location = new System.Drawing.Point(265, 198);
+            txtFactor.Location = new System.Drawing.Point(309, 228);
+            txtFactor.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtFactor.Name = "txtFactor";
-            txtFactor.Size = new System.Drawing.Size(40, 20);
+            txtFactor.Size = new System.Drawing.Size(46, 23);
             txtFactor.TabIndex = 146;
             txtFactor.Text = "1";
             // 
@@ -133,18 +136,20 @@
             // 
             lblFactor.Enabled = false;
             lblFactor.ForeColor = System.Drawing.SystemColors.HotTrack;
-            lblFactor.Location = new System.Drawing.Point(182, 201);
+            lblFactor.Location = new System.Drawing.Point(212, 232);
+            lblFactor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblFactor.Name = "lblFactor";
-            lblFactor.Size = new System.Drawing.Size(71, 16);
+            lblFactor.Size = new System.Drawing.Size(83, 18);
             lblFactor.TabIndex = 145;
             lblFactor.Text = "x codepage";
             lblFactor.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblCodePage
             // 
-            lblCodePage.Location = new System.Drawing.Point(44, 227);
+            lblCodePage.Location = new System.Drawing.Point(51, 262);
+            lblCodePage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblCodePage.Name = "lblCodePage";
-            lblCodePage.Size = new System.Drawing.Size(88, 13);
+            lblCodePage.Size = new System.Drawing.Size(103, 15);
             lblCodePage.TabIndex = 140;
             lblCodePage.Text = "codepage";
             lblCodePage.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -153,34 +158,38 @@
             // 
             cmbCodepage.Enabled = false;
             cmbCodepage.FormattingEnabled = true;
-            cmbCodepage.Location = new System.Drawing.Point(138, 224);
+            cmbCodepage.Location = new System.Drawing.Point(161, 258);
+            cmbCodepage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cmbCodepage.Name = "cmbCodepage";
-            cmbCodepage.Size = new System.Drawing.Size(167, 21);
+            cmbCodepage.Size = new System.Drawing.Size(194, 23);
             cmbCodepage.TabIndex = 139;
             cmbCodepage.SelectedIndexChanged += cmbCodepage_SelectedIndexChanged;
             // 
             // txtWriteAddress
             // 
-            txtWriteAddress.Location = new System.Drawing.Point(138, 145);
+            txtWriteAddress.Location = new System.Drawing.Point(161, 167);
+            txtWriteAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtWriteAddress.Name = "txtWriteAddress";
-            txtWriteAddress.Size = new System.Drawing.Size(167, 20);
+            txtWriteAddress.Size = new System.Drawing.Size(194, 23);
             txtWriteAddress.TabIndex = 137;
             txtWriteAddress.Text = "0";
             // 
             // lblWriteAddress
             // 
-            lblWriteAddress.Location = new System.Drawing.Point(44, 148);
+            lblWriteAddress.Location = new System.Drawing.Point(51, 171);
+            lblWriteAddress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblWriteAddress.Name = "lblWriteAddress";
-            lblWriteAddress.Size = new System.Drawing.Size(88, 13);
+            lblWriteAddress.Size = new System.Drawing.Size(103, 15);
             lblWriteAddress.TabIndex = 138;
             lblWriteAddress.Text = "write address";
             lblWriteAddress.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblMode
             // 
-            lblMode.Location = new System.Drawing.Point(15, 17);
+            lblMode.Location = new System.Drawing.Point(18, 20);
+            lblMode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblMode.Name = "lblMode";
-            lblMode.Size = new System.Drawing.Size(117, 16);
+            lblMode.Size = new System.Drawing.Size(136, 18);
             lblMode.TabIndex = 136;
             lblMode.Text = "read / write mode";
             lblMode.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -190,9 +199,10 @@
             rbRead.AutoSize = true;
             rbRead.Checked = true;
             rbRead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            rbRead.Location = new System.Drawing.Point(138, 17);
+            rbRead.Location = new System.Drawing.Point(161, 20);
+            rbRead.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             rbRead.Name = "rbRead";
-            rbRead.Size = new System.Drawing.Size(83, 17);
+            rbRead.Size = new System.Drawing.Size(88, 19);
             rbRead.TabIndex = 123;
             rbRead.TabStop = true;
             rbRead.Text = "read on PLC";
@@ -203,26 +213,29 @@
             // 
             rbWrite.AutoSize = true;
             rbWrite.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            rbWrite.Location = new System.Drawing.Point(230, 17);
+            rbWrite.Location = new System.Drawing.Point(268, 20);
+            rbWrite.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             rbWrite.Name = "rbWrite";
-            rbWrite.Size = new System.Drawing.Size(75, 17);
+            rbWrite.Size = new System.Drawing.Size(83, 19);
             rbWrite.TabIndex = 135;
             rbWrite.Text = "write to plc";
             rbWrite.UseVisualStyleBackColor = true;
             // 
             // txtDB
             // 
-            txtDB.Location = new System.Drawing.Point(138, 92);
+            txtDB.Location = new System.Drawing.Point(161, 106);
+            txtDB.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtDB.Name = "txtDB";
-            txtDB.Size = new System.Drawing.Size(167, 20);
+            txtDB.Size = new System.Drawing.Size(194, 23);
             txtDB.TabIndex = 121;
             txtDB.Text = "1";
             // 
             // lblDB
             // 
-            lblDB.Location = new System.Drawing.Point(11, 90);
+            lblDB.Location = new System.Drawing.Point(13, 104);
+            lblDB.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblDB.Name = "lblDB";
-            lblDB.Size = new System.Drawing.Size(121, 28);
+            lblDB.Size = new System.Drawing.Size(141, 32);
             lblDB.TabIndex = 122;
             lblDB.Text = "DB (only for DB, use 0 otherwise)";
             lblDB.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -230,17 +243,19 @@
             // cmbRegion
             // 
             cmbRegion.FormattingEnabled = true;
-            cmbRegion.Location = new System.Drawing.Point(138, 37);
+            cmbRegion.Location = new System.Drawing.Point(161, 43);
+            cmbRegion.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cmbRegion.Name = "cmbRegion";
-            cmbRegion.Size = new System.Drawing.Size(167, 21);
+            cmbRegion.Size = new System.Drawing.Size(194, 23);
             cmbRegion.TabIndex = 119;
             cmbRegion.SelectedIndexChanged += cmbRegion_SelectedIndexChanged;
             // 
             // lblRegion
             // 
-            lblRegion.Location = new System.Drawing.Point(50, 41);
+            lblRegion.Location = new System.Drawing.Point(58, 47);
+            lblRegion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblRegion.Name = "lblRegion";
-            lblRegion.Size = new System.Drawing.Size(82, 16);
+            lblRegion.Size = new System.Drawing.Size(96, 18);
             lblRegion.TabIndex = 120;
             lblRegion.Text = "region";
             lblRegion.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -255,17 +270,19 @@
             grbWriteValues.Controls.Add(txtMultipleNumericValues);
             grbWriteValues.Controls.Add(txtMultipleBoolValues);
             grbWriteValues.Enabled = false;
-            grbWriteValues.Location = new System.Drawing.Point(331, 6);
+            grbWriteValues.Location = new System.Drawing.Point(386, 7);
+            grbWriteValues.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             grbWriteValues.Name = "grbWriteValues";
-            grbWriteValues.Size = new System.Drawing.Size(319, 239);
+            grbWriteValues.Size = new System.Drawing.Size(372, 276);
             grbWriteValues.TabIndex = 118;
             // 
             // chkSingleValue
             // 
             chkSingleValue.AutoSize = true;
-            chkSingleValue.Location = new System.Drawing.Point(41, 13);
+            chkSingleValue.Location = new System.Drawing.Point(48, 15);
+            chkSingleValue.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             chkSingleValue.Name = "chkSingleValue";
-            chkSingleValue.Size = new System.Drawing.Size(82, 17);
+            chkSingleValue.Size = new System.Drawing.Size(88, 19);
             chkSingleValue.TabIndex = 126;
             chkSingleValue.Text = "single value";
             chkSingleValue.UseVisualStyleBackColor = true;
@@ -275,9 +292,10 @@
             // 
             rbOff.AutoSize = true;
             rbOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            rbOff.Location = new System.Drawing.Point(179, 55);
+            rbOff.Location = new System.Drawing.Point(209, 63);
+            rbOff.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             rbOff.Name = "rbOff";
-            rbOff.Size = new System.Drawing.Size(44, 17);
+            rbOff.Size = new System.Drawing.Size(45, 19);
             rbOff.TabIndex = 121;
             rbOff.Text = "OFF";
             rbOff.UseVisualStyleBackColor = true;
@@ -289,9 +307,10 @@
             rbOn.AutoSize = true;
             rbOn.Checked = true;
             rbOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            rbOn.Location = new System.Drawing.Point(41, 55);
+            rbOn.Location = new System.Drawing.Point(48, 63);
+            rbOn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             rbOn.Name = "rbOn";
-            rbOn.Size = new System.Drawing.Size(40, 17);
+            rbOn.Size = new System.Drawing.Size(42, 19);
             rbOn.TabIndex = 120;
             rbOn.TabStop = true;
             rbOn.Text = "ON";
@@ -303,10 +322,11 @@
             // 
             txtSingleValues.BackColor = System.Drawing.Color.White;
             txtSingleValues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtSingleValues.Location = new System.Drawing.Point(41, 55);
+            txtSingleValues.Location = new System.Drawing.Point(48, 63);
+            txtSingleValues.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtSingleValues.Name = "txtSingleValues";
             txtSingleValues.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            txtSingleValues.Size = new System.Drawing.Size(275, 20);
+            txtSingleValues.Size = new System.Drawing.Size(320, 23);
             txtSingleValues.TabIndex = 119;
             txtSingleValues.Text = "0";
             txtSingleValues.Visible = false;
@@ -316,7 +336,8 @@
             // 
             lblEnterValues.AutoSize = true;
             lblEnterValues.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            lblEnterValues.Location = new System.Drawing.Point(38, 33);
+            lblEnterValues.Location = new System.Drawing.Point(44, 38);
+            lblEnterValues.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblEnterValues.Name = "lblEnterValues";
             lblEnterValues.Size = new System.Drawing.Size(212, 13);
             lblEnterValues.TabIndex = 118;
@@ -326,11 +347,12 @@
             // 
             txtMultipleNumericValues.BackColor = System.Drawing.Color.White;
             txtMultipleNumericValues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtMultipleNumericValues.Location = new System.Drawing.Point(41, 56);
+            txtMultipleNumericValues.Location = new System.Drawing.Point(48, 65);
+            txtMultipleNumericValues.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtMultipleNumericValues.Multiline = true;
             txtMultipleNumericValues.Name = "txtMultipleNumericValues";
             txtMultipleNumericValues.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            txtMultipleNumericValues.Size = new System.Drawing.Size(275, 156);
+            txtMultipleNumericValues.Size = new System.Drawing.Size(320, 180);
             txtMultipleNumericValues.TabIndex = 117;
             txtMultipleNumericValues.Text = "0\r\n0\r\n0\r\n0";
             txtMultipleNumericValues.TextChanged += txtMultipleNumericValues_TextChanged;
@@ -339,71 +361,79 @@
             // 
             txtMultipleBoolValues.BackColor = System.Drawing.Color.White;
             txtMultipleBoolValues.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            txtMultipleBoolValues.Location = new System.Drawing.Point(41, 56);
+            txtMultipleBoolValues.Location = new System.Drawing.Point(48, 65);
+            txtMultipleBoolValues.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtMultipleBoolValues.Multiline = true;
             txtMultipleBoolValues.Name = "txtMultipleBoolValues";
             txtMultipleBoolValues.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            txtMultipleBoolValues.Size = new System.Drawing.Size(275, 156);
+            txtMultipleBoolValues.Size = new System.Drawing.Size(320, 180);
             txtMultipleBoolValues.TabIndex = 117;
             txtMultipleBoolValues.Text = "true\r\ntrue\r\ntrue\r\ntrue";
             txtMultipleBoolValues.TextChanged += txtMultipleBoolValues_TextChanged;
             // 
             // txtQuantity
             // 
-            txtQuantity.Location = new System.Drawing.Point(138, 198);
+            txtQuantity.Location = new System.Drawing.Point(161, 228);
+            txtQuantity.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtQuantity.Name = "txtQuantity";
-            txtQuantity.Size = new System.Drawing.Size(38, 20);
+            txtQuantity.Size = new System.Drawing.Size(44, 23);
             txtQuantity.TabIndex = 112;
             txtQuantity.Text = "1";
             // 
             // lblLength
             // 
-            lblLength.Location = new System.Drawing.Point(44, 201);
+            lblLength.Location = new System.Drawing.Point(51, 232);
+            lblLength.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLength.Name = "lblLength";
-            lblLength.Size = new System.Drawing.Size(88, 13);
+            lblLength.Size = new System.Drawing.Size(103, 15);
             lblLength.TabIndex = 113;
             lblLength.Text = "quantity";
             lblLength.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // txtBit
             // 
-            txtBit.Location = new System.Drawing.Point(138, 170);
+            txtBit.Location = new System.Drawing.Point(161, 196);
+            txtBit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtBit.Name = "txtBit";
-            txtBit.Size = new System.Drawing.Size(167, 20);
+            txtBit.Size = new System.Drawing.Size(194, 23);
             txtBit.TabIndex = 109;
             txtBit.Text = "0";
             // 
             // lblBit
             // 
-            lblBit.Location = new System.Drawing.Point(18, 167);
+            lblBit.Location = new System.Drawing.Point(21, 193);
+            lblBit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblBit.Name = "lblBit";
-            lblBit.Size = new System.Drawing.Size(115, 28);
+            lblBit.Size = new System.Drawing.Size(134, 32);
             lblBit.TabIndex = 110;
             lblBit.Text = "bit";
             lblBit.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // txtReadAddress
             // 
-            txtReadAddress.Location = new System.Drawing.Point(138, 119);
+            txtReadAddress.Location = new System.Drawing.Point(161, 137);
+            txtReadAddress.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtReadAddress.Name = "txtReadAddress";
-            txtReadAddress.Size = new System.Drawing.Size(167, 20);
+            txtReadAddress.Size = new System.Drawing.Size(194, 23);
             txtReadAddress.TabIndex = 108;
             txtReadAddress.Text = "0";
             // 
             // lblReadAdress
             // 
-            lblReadAdress.Location = new System.Drawing.Point(44, 122);
+            lblReadAdress.Location = new System.Drawing.Point(51, 141);
+            lblReadAdress.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblReadAdress.Name = "lblReadAdress";
-            lblReadAdress.Size = new System.Drawing.Size(88, 13);
+            lblReadAdress.Size = new System.Drawing.Size(103, 15);
             lblReadAdress.TabIndex = 111;
             lblReadAdress.Text = "read address";
             lblReadAdress.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblDataType
             // 
-            lblDataType.Location = new System.Drawing.Point(44, 67);
+            lblDataType.Location = new System.Drawing.Point(51, 77);
+            lblDataType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblDataType.Name = "lblDataType";
-            lblDataType.Size = new System.Drawing.Size(88, 13);
+            lblDataType.Size = new System.Drawing.Size(103, 15);
             lblDataType.TabIndex = 76;
             lblDataType.Text = "data type";
             lblDataType.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -411,16 +441,18 @@
             // cmbDataType
             // 
             cmbDataType.FormattingEnabled = true;
-            cmbDataType.Location = new System.Drawing.Point(138, 64);
+            cmbDataType.Location = new System.Drawing.Point(161, 74);
+            cmbDataType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             cmbDataType.Name = "cmbDataType";
-            cmbDataType.Size = new System.Drawing.Size(167, 21);
+            cmbDataType.Size = new System.Drawing.Size(194, 23);
             cmbDataType.TabIndex = 75;
             cmbDataType.SelectedIndexChanged += cmbDataType_SelectedIndexChanged;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = (System.Drawing.Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new System.Drawing.Point(12, -1);
+            pictureBox2.Location = new System.Drawing.Point(14, -1);
+            pictureBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new System.Drawing.Size(130, 60);
             pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -431,10 +463,11 @@
             // 
             txtInfoRB.BackColor = System.Drawing.SystemColors.Info;
             txtInfoRB.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            txtInfoRB.Location = new System.Drawing.Point(42, 2);
+            txtInfoRB.Location = new System.Drawing.Point(49, 2);
+            txtInfoRB.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             txtInfoRB.Multiline = true;
             txtInfoRB.Name = "txtInfoRB";
-            txtInfoRB.Size = new System.Drawing.Size(413, 56);
+            txtInfoRB.Size = new System.Drawing.Size(482, 65);
             txtInfoRB.TabIndex = 114;
             txtInfoRB.Text = "You can execute single read and write processes on this window. For optimized read processes please use the ReadDataRequestCollection.";
             // 
@@ -442,9 +475,11 @@
             // 
             grpAction.Controls.Add(btnExecute);
             grpAction.Controls.Add(lvValues);
-            grpAction.Location = new System.Drawing.Point(12, 320);
+            grpAction.Location = new System.Drawing.Point(14, 369);
+            grpAction.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             grpAction.Name = "grpAction";
-            grpAction.Size = new System.Drawing.Size(656, 180);
+            grpAction.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            grpAction.Size = new System.Drawing.Size(765, 208);
             grpAction.TabIndex = 88;
             grpAction.TabStop = false;
             grpAction.Text = "Action";
@@ -453,9 +488,10 @@
             // 
             btnExecute.Image = (System.Drawing.Image)resources.GetObject("btnExecute.Image");
             btnExecute.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            btnExecute.Location = new System.Drawing.Point(15, 19);
+            btnExecute.Location = new System.Drawing.Point(18, 22);
+            btnExecute.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnExecute.Name = "btnExecute";
-            btnExecute.Size = new System.Drawing.Size(68, 68);
+            btnExecute.Size = new System.Drawing.Size(79, 78);
             btnExecute.TabIndex = 105;
             btnExecute.Text = "execute function";
             btnExecute.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -468,9 +504,10 @@
             lvValues.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { colDummy, colPosition, colValue });
             lvValues.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
             lvValues.FullRowSelect = true;
-            lvValues.Location = new System.Drawing.Point(100, 19);
+            lvValues.Location = new System.Drawing.Point(117, 22);
+            lvValues.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lvValues.Name = "lvValues";
-            lvValues.Size = new System.Drawing.Size(550, 140);
+            lvValues.Size = new System.Drawing.Size(641, 161);
             lvValues.TabIndex = 104;
             lvValues.UseCompatibleStateImageBehavior = false;
             lvValues.View = System.Windows.Forms.View.Details;
@@ -492,9 +529,10 @@
             // lblLog
             // 
             lblLog.AutoSize = true;
-            lblLog.Location = new System.Drawing.Point(109, 476);
+            lblLog.Location = new System.Drawing.Point(19, 579);
+            lblLog.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             lblLog.Name = "lblLog";
-            lblLog.Size = new System.Drawing.Size(90, 13);
+            lblLog.Size = new System.Drawing.Size(102, 15);
             lblLog.TabIndex = 39;
             lblLog.Text = "Diagnostic output";
             // 
@@ -505,9 +543,10 @@
             panelStatusStrip.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelStatusStrip.Controls.Add(statusStrip);
             panelStatusStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panelStatusStrip.Location = new System.Drawing.Point(0, 739);
+            panelStatusStrip.Location = new System.Drawing.Point(0, 856);
+            panelStatusStrip.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panelStatusStrip.Name = "panelStatusStrip";
-            panelStatusStrip.Size = new System.Drawing.Size(671, 24);
+            panelStatusStrip.Size = new System.Drawing.Size(783, 24);
             panelStatusStrip.TabIndex = 97;
             // 
             // statusStrip
@@ -516,7 +555,8 @@
             statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { lblDeviceType });
             statusStrip.Location = new System.Drawing.Point(0, 0);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new System.Drawing.Size(669, 22);
+            statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            statusStrip.Size = new System.Drawing.Size(781, 22);
             statusStrip.TabIndex = 95;
             // 
             // lblDeviceType
@@ -534,9 +574,10 @@
             // 
             lvLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1 });
             lvLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            lvLog.Location = new System.Drawing.Point(112, 514);
+            lvLog.Location = new System.Drawing.Point(131, 593);
+            lvLog.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             lvLog.Name = "lvLog";
-            lvLog.Size = new System.Drawing.Size(550, 142);
+            lvLog.Size = new System.Drawing.Size(641, 163);
             lvLog.TabIndex = 98;
             lvLog.UseCompatibleStateImageBehavior = false;
             lvLog.View = System.Windows.Forms.View.Details;
@@ -549,9 +590,10 @@
             // 
             btnSaveLogtoFile.Image = (System.Drawing.Image)resources.GetObject("btnSaveLogtoFile.Image");
             btnSaveLogtoFile.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            btnSaveLogtoFile.Location = new System.Drawing.Point(27, 592);
+            btnSaveLogtoFile.Location = new System.Drawing.Point(31, 683);
+            btnSaveLogtoFile.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSaveLogtoFile.Name = "btnSaveLogtoFile";
-            btnSaveLogtoFile.Size = new System.Drawing.Size(68, 68);
+            btnSaveLogtoFile.Size = new System.Drawing.Size(79, 78);
             btnSaveLogtoFile.TabIndex = 107;
             btnSaveLogtoFile.Text = "save log to file";
             btnSaveLogtoFile.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -562,9 +604,10 @@
             // 
             btnSaveLogtoClipboard.Image = (System.Drawing.Image)resources.GetObject("btnSaveLogtoClipboard.Image");
             btnSaveLogtoClipboard.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            btnSaveLogtoClipboard.Location = new System.Drawing.Point(27, 518);
+            btnSaveLogtoClipboard.Location = new System.Drawing.Point(31, 598);
+            btnSaveLogtoClipboard.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnSaveLogtoClipboard.Name = "btnSaveLogtoClipboard";
-            btnSaveLogtoClipboard.Size = new System.Drawing.Size(68, 68);
+            btnSaveLogtoClipboard.Size = new System.Drawing.Size(79, 78);
             btnSaveLogtoClipboard.TabIndex = 106;
             btnSaveLogtoClipboard.Text = "copy log to clipboard";
             btnSaveLogtoClipboard.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -575,9 +618,10 @@
             // 
             btnClose.Image = (System.Drawing.Image)resources.GetObject("btnClose.Image");
             btnClose.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            btnClose.Location = new System.Drawing.Point(594, 664);
+            btnClose.Location = new System.Drawing.Point(693, 766);
+            btnClose.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             btnClose.Name = "btnClose";
-            btnClose.Size = new System.Drawing.Size(68, 68);
+            btnClose.Size = new System.Drawing.Size(79, 78);
             btnClose.TabIndex = 108;
             btnClose.Text = "close window";
             btnClose.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -590,15 +634,17 @@
             panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(txtInfoRB);
-            panel1.Location = new System.Drawing.Point(185, 6);
+            panel1.Location = new System.Drawing.Point(216, 7);
+            panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(474, 59);
+            panel1.Size = new System.Drawing.Size(553, 68);
             panel1.TabIndex = 135;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (System.Drawing.Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new System.Drawing.Point(4, 2);
+            pictureBox1.Location = new System.Drawing.Point(5, 2);
+            pictureBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new System.Drawing.Size(32, 32);
             pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -607,24 +653,26 @@
             // 
             // ReadWriteBox
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(671, 763);
+            ClientSize = new System.Drawing.Size(783, 880);
             Controls.Add(panel1);
             Controls.Add(pictureBox2);
+            Controls.Add(lblLog);
             Controls.Add(btnClose);
             Controls.Add(btnSaveLogtoFile);
             Controls.Add(btnSaveLogtoClipboard);
             Controls.Add(lvLog);
-            Controls.Add(lblLog);
             Controls.Add(panelStatusStrip);
             Controls.Add(grpAction);
             Controls.Add(grpAddress);
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ReadWriteBox";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             Text = "ReadWriteBox";
             FormClosing += ReadWriteBox_FormClosing;
             Load += ReadWriteBox_Load;

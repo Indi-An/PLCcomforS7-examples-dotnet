@@ -90,7 +90,6 @@
             cmbLanguage = new System.Windows.Forms.ComboBox();
             grbConnection = new System.Windows.Forms.Panel();
             pictureBox2 = new System.Windows.Forms.PictureBox();
-            lblSerialLimited = new System.Windows.Forms.Label();
             grbSerial.SuspendLayout();
             grbAccess.SuspendLayout();
             grbConnectionSettings.SuspendLayout();
@@ -117,7 +116,6 @@
             // 
             // grbSerial
             // 
-            grbSerial.Controls.Add(lblSerialLimited);
             grbSerial.Controls.Add(lblSerial);
             grbSerial.Controls.Add(lblUser);
             grbSerial.Controls.Add(txtSerial);
@@ -170,7 +168,7 @@
             // 
             lblSerialCode.AutoSize = true;
             lblSerialCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            lblSerialCode.Location = new System.Drawing.Point(11, 18);
+            lblSerialCode.Location = new System.Drawing.Point(11, 28);
             lblSerialCode.Name = "lblSerialCode";
             lblSerialCode.Size = new System.Drawing.Size(250, 16);
             lblSerialCode.TabIndex = 0;
@@ -755,15 +753,7 @@
             pictureBox2.TabIndex = 132;
             pictureBox2.TabStop = false;
             // 
-            // lblSerialLimited
-            // 
-            lblSerialLimited.Location = new System.Drawing.Point(11, 38);
-            lblSerialLimited.Name = "lblSerialLimited";
-            lblSerialLimited.Size = new System.Drawing.Size(376, 23);
-            lblSerialLimited.TabIndex = 105;
-            lblSerialLimited.Text = "Note: Without a license key, the runtime is limited to 15 minutes";
-            // 
-            // Main
+            // main
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -782,7 +772,7 @@
             FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
-            Name = "Main";
+            Name = "main";
             Text = "Start Example";
             FormClosing += main_FormClosing;
             Load += main_Load;
@@ -877,7 +867,6 @@ Nach:
         internal System.Windows.Forms.TextBox txtProtectionUser;
         internal System.Windows.Forms.Label lblProtectionUser;
         private System.Windows.Forms.Button btnAlarmMessages;
-        internal System.Windows.Forms.Label lblSerialLimited;
     }
 }
 

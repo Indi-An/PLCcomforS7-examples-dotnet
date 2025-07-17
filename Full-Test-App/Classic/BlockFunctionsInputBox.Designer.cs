@@ -115,7 +115,6 @@
             this.Name = "BlockFunctionsInputBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Inputbox";
-            this.Load += new System.EventHandler(this.BlockFunctionsInputBox_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
