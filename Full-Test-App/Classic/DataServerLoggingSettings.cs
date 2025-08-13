@@ -69,7 +69,10 @@ namespace PLCCom_Full_Test_App.Classic
         private void DataServerLoggingSettings_Load(object sender, EventArgs e)
         {
             // Init controls and load UI text from resources
-            resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
+            resources = new System.Resources.ResourceManager(
+                this.GetType().Assembly.GetName().Name + ".Properties.Resources",
+                this.GetType().Assembly
+            );
 
             cmbConnectorType.DataSource = Enum.GetValues(typeof(eTypeOfConnector));
             cmbImageOutputFormat.DataSource = Enum.GetValues(typeof(PLCcom.ExternalLogging.eImageOutputFormat));

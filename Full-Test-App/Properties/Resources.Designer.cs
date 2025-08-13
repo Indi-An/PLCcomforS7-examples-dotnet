@@ -89,6 +89,15 @@ namespace PLCCom_Full_Test_App.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Confirm Alarm ähnelt.
+        /// </summary>
+        internal static string btnAcknowledge_Text {
+            get {
+                return ResourceManager.GetString("btnAcknowledge_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die add
         ///connector ähnelt.
         /// </summary>
@@ -104,6 +113,15 @@ namespace PLCCom_Full_Test_App.Properties {
         internal static string btnAddRequest_Text {
             get {
                 return ResourceManager.GetString("btnAddRequest_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm Messages ähnelt.
+        /// </summary>
+        internal static string btnAlarm_Text {
+            get {
+                return ResourceManager.GetString("btnAlarm_Text", resourceCulture);
             }
         }
         
@@ -768,6 +786,33 @@ namespace PLCCom_Full_Test_App.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm Text ähnelt.
+        /// </summary>
+        internal static string colAlarmText_Text {
+            get {
+                return ResourceManager.GetString("colAlarmText_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Message Type ähnelt.
+        /// </summary>
+        internal static string colMessageType_Text {
+            get {
+                return ResourceManager.GetString("colMessageType_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Timestamp ähnelt.
+        /// </summary>
+        internal static string colTimestamp_Text {
+            get {
+                return ResourceManager.GetString("colTimestamp_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die connect unsuccessful!  ähnelt.
         /// </summary>
         internal static string connect_unsuccessful {
@@ -840,6 +885,24 @@ namespace PLCCom_Full_Test_App.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Error during browsing of Alarms ähnelt.
+        /// </summary>
+        internal static string error_browsing_alarms {
+            get {
+                return ResourceManager.GetString("error_browsing_alarms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm messages, doubleclick on Item for further details ähnelt.
+        /// </summary>
+        internal static string grbAction_Text {
+            get {
+                return ResourceManager.GetString("grbAction_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Connection settings ähnelt.
         /// </summary>
         internal static string grbConnection_Text {
@@ -863,6 +926,15 @@ namespace PLCCom_Full_Test_App.Properties {
         internal static string grbFilesystemConnectorSettings_Text {
             get {
                 return ResourceManager.GetString("grbFilesystemConnectorSettings_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Information messages, doubleclick on Item for further details ähnelt.
+        /// </summary>
+        internal static string grbInformations_Text {
+            get {
+                return ResourceManager.GetString("grbInformations_Text", resourceCulture);
             }
         }
         
@@ -976,6 +1048,123 @@ namespace PLCCom_Full_Test_App.Properties {
         internal static string Important_question {
             get {
                 return ResourceManager.GetString("Important_question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Additional Text 1 ähnelt.
+        /// </summary>
+        internal static string lblAdditionalText1_Text {
+            get {
+                return ResourceManager.GetString("lblAdditionalText1_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Additional Text 2 ähnelt.
+        /// </summary>
+        internal static string lblAdditionalText2_Text {
+            get {
+                return ResourceManager.GetString("lblAdditionalText2_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Additional Text 3 ähnelt.
+        /// </summary>
+        internal static string lblAdditionalText3_Text {
+            get {
+                return ResourceManager.GetString("lblAdditionalText3_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Additional Text 4 ähnelt.
+        /// </summary>
+        internal static string lblAdditionalText4_Text {
+            get {
+                return ResourceManager.GetString("lblAdditionalText4_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Additional Text 5 ähnelt.
+        /// </summary>
+        internal static string lblAdditionalText5_Text {
+            get {
+                return ResourceManager.GetString("lblAdditionalText5_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Additional Text 6 ähnelt.
+        /// </summary>
+        internal static string lblAdditionalText6_Text {
+            get {
+                return ResourceManager.GetString("lblAdditionalText6_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Additional Text 7 ähnelt.
+        /// </summary>
+        internal static string lblAdditionalText7_Text {
+            get {
+                return ResourceManager.GetString("lblAdditionalText7_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Additional Text 8 ähnelt.
+        /// </summary>
+        internal static string lblAdditionalText8_Text {
+            get {
+                return ResourceManager.GetString("lblAdditionalText8_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Additional Text 9 ähnelt.
+        /// </summary>
+        internal static string lblAdditionalText9_Text {
+            get {
+                return ResourceManager.GetString("lblAdditionalText9_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm Class Id ähnelt.
+        /// </summary>
+        internal static string lblAlarmClassId_Text {
+            get {
+                return ResourceManager.GetString("lblAlarmClassId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm Id ähnelt.
+        /// </summary>
+        internal static string lblAlarmId_Text {
+            get {
+                return ResourceManager.GetString("lblAlarmId_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm Number ähnelt.
+        /// </summary>
+        internal static string lblAlarmNo_Text {
+            get {
+                return ResourceManager.GetString("lblAlarmNo_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm Text ähnelt.
+        /// </summary>
+        internal static string lblAlarmText_Text {
+            get {
+                return ResourceManager.GetString("lblAlarmText_Text", resourceCulture);
             }
         }
         
@@ -1266,6 +1455,15 @@ namespace PLCCom_Full_Test_App.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Info Text ähnelt.
+        /// </summary>
+        internal static string lblInfoText_Text {
+            get {
+                return ResourceManager.GetString("lblInfoText_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
         /// </summary>
         internal static string lblIsWriteImageActive_Text {
@@ -1365,6 +1563,15 @@ namespace PLCCom_Full_Test_App.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Message Type ähnelt.
+        /// </summary>
+        internal static string lblMessageType_Text {
+            get {
+                return ResourceManager.GetString("lblMessageType_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die read / write mode ähnelt.
         /// </summary>
         internal static string lblMode_Text {
@@ -1419,6 +1626,15 @@ namespace PLCCom_Full_Test_App.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Producer ähnelt.
+        /// </summary>
+        internal static string lblProducer_Text {
+            get {
+                return ResourceManager.GetString("lblProducer_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Rack ID ähnelt.
         /// </summary>
         internal static string lblRack_Text {
@@ -1464,15 +1680,6 @@ namespace PLCCom_Full_Test_App.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Note: Without a license key, the runtime is limited to 15 minutes ähnelt.
-        /// </summary>
-        internal static string lblSerialLimited_Text {
-            get {
-                return ResourceManager.GetString("lblSerialLimited_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Slot ID ähnelt.
         /// </summary>
         internal static string lblSlot_Text {
@@ -1487,6 +1694,42 @@ namespace PLCCom_Full_Test_App.Properties {
         internal static string lblStartAdress_Text {
             get {
                 return ResourceManager.GetString("lblStartAdress_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Alarm State ähnelt.
+        /// </summary>
+        internal static string lblState_Text {
+            get {
+                return ResourceManager.GetString("lblState_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Timestamp Acknowledge ähnelt.
+        /// </summary>
+        internal static string lblTSAck_Text {
+            get {
+                return ResourceManager.GetString("lblTSAck_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Timestamp Coming ähnelt.
+        /// </summary>
+        internal static string lblTSComing_Text {
+            get {
+                return ResourceManager.GetString("lblTSComing_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Timestamp Going ähnelt.
+        /// </summary>
+        internal static string lblTsGoing_Text {
+            get {
+                return ResourceManager.GetString("lblTsGoing_Text", resourceCulture);
             }
         }
         
@@ -1812,6 +2055,15 @@ namespace PLCCom_Full_Test_App.Properties {
         internal static string to_many_windows {
             get {
                 return ResourceManager.GetString("to_many_windows", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Pending alarms can be viewed and acknowledged in this window. With doubleclick on a item, you can see the message details. ähnelt.
+        /// </summary>
+        internal static string txtInfoAlarms_Text {
+            get {
+                return ResourceManager.GetString("txtInfoAlarms_Text", resourceCulture);
             }
         }
         

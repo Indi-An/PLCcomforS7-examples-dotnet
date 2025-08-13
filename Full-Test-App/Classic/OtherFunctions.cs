@@ -45,7 +45,10 @@ namespace PLCCom_Full_Test_App.Classic
         {
             lblDeviceType.Text = "DeviceType: " + device.GetType().ToString();
 
-            resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
+            resources = new System.Resources.ResourceManager(
+                this.GetType().Assembly.GetName().Name + ".Properties.Resources",
+                this.GetType().Assembly
+            );
 
             // Set localized button and label texts
             this.btnStartPLC.Text = resources.GetString("btnStartPLC_Text");

@@ -51,7 +51,10 @@ namespace PLCCom_Full_Test_App.Symbolic
                 lblDeviceType.Text = "DeviceType: " + device.GetType().ToString();
 
                 // Load UI strings from resources for localization
-                resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
+                resources = new System.Resources.ResourceManager(
+                    this.GetType().Assembly.GetName().Name + ".Properties.Resources",
+                    this.GetType().Assembly
+                );
 
                 this.btnClose.Text = resources.GetString("btnClose_Text");
                 this.btnAcknowledge.Text = resources.GetString("btnAcknowledge_Text");

@@ -46,7 +46,10 @@ namespace PLCCom_Full_Test_App.Classic
         {
             lblDeviceType.Text = "DeviceType: " + mDevice.GetType().ToString();
 
-            resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
+            resources = new System.Resources.ResourceManager(
+                this.GetType().Assembly.GetName().Name + ".Properties.Resources",
+                this.GetType().Assembly
+            );
 
             this.btnsendPW.Text = resources.GetString("btnsendPW_Text");
             this.btnBlockList.Text = resources.GetString("btnBlockList_Text");

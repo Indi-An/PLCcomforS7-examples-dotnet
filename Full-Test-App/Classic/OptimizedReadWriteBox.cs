@@ -59,7 +59,10 @@ namespace PLCCom_Full_Test_App.Classic
                 lblDeviceType.Text = "DeviceType: " + Device.GetType().ToString();
 
                 // Set resources for localized UI strings
-                resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
+                resources = new System.Resources.ResourceManager(
+                    this.GetType().Assembly.GetName().Name + ".Properties.Resources",
+                    this.GetType().Assembly
+                );
 
                 cmbReadOptimizeMode.DataSource = Enum.GetValues(typeof(eReadOptimizationMode));
                 cmbReadOptimizeMode.SelectedItem = eReadOptimizationMode.NONE;

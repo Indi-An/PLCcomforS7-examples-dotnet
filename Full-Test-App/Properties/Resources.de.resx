@@ -811,7 +811,91 @@ Bitte beachten Sie: Für einen symbolischen Zugriff müssen bestimmte Vorrausetz
   <data name="lblPlcPassword_Text" xml:space="preserve">
     <value>SPS Passwort</value>
   </data>
-  <data name="lblSerialLimited_Text" xml:space="preserve">
-    <value>Hinweis: Ohne Lizenzschlüssel ist die Laufzeit auf 15 Minuten begrenzt.</value>
+  <data name="btnAcknowledge_Text" xml:space="preserve">
+    <value>Bestätige Alarm</value>
+  </data>
+  <data name="btnAlarm_Text" xml:space="preserve">
+    <value>Alarm Meldungen</value>
+  </data>
+  <data name="error_browsing_alarms" xml:space="preserve">
+    <value>Fehler beim Browsen der Alarme</value>
+  </data>
+  <data name="colAlarmText_Text" xml:space="preserve">
+    <value>Alarm Text</value>
+  </data>
+  <data name="colMessageType_Text" xml:space="preserve">
+    <value>Meldungstyp</value>
+  </data>
+  <data name="colTimestamp_Text" xml:space="preserve">
+    <value>Zeitstempel</value>
+  </data>
+  <data name="grbAction_Text" xml:space="preserve">
+    <value>Alarm Meldungen, Doppelklick für weitere Details</value>
+  </data>
+  <data name="grbInformations_Text" xml:space="preserve">
+    <value>Information Meldungen, Doppelklick für weitere Details</value>
+  </data>
+  <data name="lblAdditionalText1_Text" xml:space="preserve">
+    <value>Zusatztext 1</value>
+  </data>
+  <data name="lblAdditionalText2_Text" xml:space="preserve">
+    <value>Zusatztext 2</value>
+  </data>
+  <data name="lblAdditionalText3_Text" xml:space="preserve">
+    <value>Zusatztext 3</value>
+  </data>
+  <data name="lblAdditionalText4_Text" xml:space="preserve">
+    <value>Zusatztext 4</value>
+  </data>
+  <data name="lblAdditionalText5_Text" xml:space="preserve">
+    <value>Zusatztext 5</value>
+  </data>
+  <data name="lblAdditionalText6_Text" xml:space="preserve">
+    <value>Zusatztext 6</value>
+  </data>
+  <data name="lblAdditionalText7_Text" xml:space="preserve">
+    <value>Zusatztext 7</value>
+  </data>
+  <data name="lblAdditionalText8_Text" xml:space="preserve">
+    <value>Zusatztext 8</value>
+  </data>
+  <data name="lblAdditionalText9_Text" xml:space="preserve">
+    <value>Zusatztext 9</value>
+  </data>
+  <data name="lblAlarmClassId_Text" xml:space="preserve">
+    <value>Alarm Class Id</value>
+  </data>
+  <data name="lblAlarmId_Text" xml:space="preserve">
+    <value>Alarm Id</value>
+  </data>
+  <data name="lblAlarmNo_Text" xml:space="preserve">
+    <value>Alarm Nummer</value>
+  </data>
+  <data name="lblAlarmText_Text" xml:space="preserve">
+    <value>Alarmtext</value>
+  </data>
+  <data name="lblInfoText_Text" xml:space="preserve">
+    <value>Infotext</value>
+  </data>
+  <data name="lblMessageType_Text" xml:space="preserve">
+    <value>Meldungstyp</value>
+  </data>
+  <data name="lblProducer_Text" xml:space="preserve">
+    <value>Erzeuger</value>
+  </data>
+  <data name="lblState_Text" xml:space="preserve">
+    <value>Alarm Status</value>
+  </data>
+  <data name="lblTSAck_Text" xml:space="preserve">
+    <value>Zeitstempel bestätigt</value>
+  </data>
+  <data name="lblTSComing_Text" xml:space="preserve">
+    <value>Zeitstempel gekommen</value>
+  </data>
+  <data name="lblTsGoing_Text" xml:space="preserve">
+    <value>Zeitstempel gegangen</value>
+  </data>
+  <data name="txtInfoAlarms_Text" xml:space="preserve">
+    <value>In diesem Fenster können anstehende Alarme eingesehen und quittiert werden. Mit einem Doppelklick auf das entsprechende Item, werden die Meldungsdetails angezeigt</value>
   </data>
 </root>

@@ -19,7 +19,7 @@ internal class Program
         {
 
             // Important !!!!!!!!!!!!!!!!!!
-            // Enter your Username + Serial here! Please note: Without a license key (empty fields), the runtime is limited to 15 minutes
+            // Enter your Username + Serial here! Please note: Without a license key (empty fields), the runtime is limited to 10 minutes
             authentication.User = ""; //Please enter your user name
             authentication.Serial = ""; // Please enter your user serial key
 

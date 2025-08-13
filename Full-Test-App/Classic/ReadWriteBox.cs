@@ -27,7 +27,11 @@ namespace PLCCom_Full_Test_App.Classic
         public ReadWriteBox(PLCcomDevice mDevice)
         {
             // Set resources
-            resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
+            resources = new System.Resources.ResourceManager(
+                this.GetType().Assembly.GetName().Name + ".Properties.Resources",
+                this.GetType().Assembly
+            );
+            
             InitializeComponent();
             this.Device = mDevice;
         }

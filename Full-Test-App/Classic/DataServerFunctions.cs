@@ -85,7 +85,11 @@ namespace PLCCom_Full_Test_App.Classic
                 cmbReadOptimizeMode.SelectedItem = eReadOptimizationMode.AUTO;
 
                 // Set resources for UI strings
-                resources = new System.Resources.ResourceManager("PLCCom_Example_CSharp.Properties.Resources", this.GetType().Assembly);
+                 resources = new System.Resources.ResourceManager(
+                    this.GetType().Assembly.GetName().Name + ".Properties.Resources",
+                    this.GetType().Assembly
+                );
+
                 this.chkLogging.Text = resources.GetString("lblLog_Text");
                 this.grpAddress.Text = resources.GetString("grpAddress_Text");
                 this.grpAction.Text = resources.GetString("grpAction_Text");
