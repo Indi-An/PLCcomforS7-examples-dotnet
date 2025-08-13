@@ -45,7 +45,7 @@ For a full list of supported features, detailed descriptions, and compatibility 
 - **PLCcom for S7** itself is proprietary software and is **NOT** included under the MIT license. To use the PLCcom library in your own projects, you must acquire an appropriate license and accept the EULA for the PLCcom for S7 library. More information about purchasing a license can be found [here](https://www.indi-an.com/en/plccom/for-s7/fors7-overview/).
 
 **Test License:**
-- For execution, a test license is required. Without license information, the library will work for 15 minutes. If a longer test period is desired, users can request an extended test license by sending a brief email to [sales@indi-an.com](mailto:sales@indi-an.com).
+- For execution, a test license is required. Without license information, the library will work for 10 minutes. If a longer test period is desired, users can request an extended test license by sending a brief email to [sales@indi-an.com](mailto:sales@indi-an.com).
 
 ## Getting Started
 
@@ -58,14 +58,10 @@ Install-Package PLCcomForS7
 
 ## ⚠️ Important Safety Notice
 
-The examples in this repository are **for demonstration purposes only** and **must _not_** be used in production, safety‑critical, or industrial environments.  
+The examples in this repository are **for demonstration purposes only** and **must _not_** be used in production, safety‑critical, or industrial environments without your own checks.  
 **Use at your own risk!** Deploying these examples in real systems may lead to personal injury, property damage, or environmental harm and is **strictly prohibited**.
 
-> **EULA Requirement**  
-> Use of the PLCcom for S7 library is permitted **only after you have read and explicitly accepted the End‑User License Agreement (EULA)**. If you do not accept the EULA, you must not install, compile, or otherwise use the library.
-
-Indi.An GmbH disclaims all liability—direct, indirect, incidental, or consequential—arising from the use or misuse of these examples.
-
+The author disclaims all liability—direct, indirect, incidental, or consequential—arising from the use or misuse of these examples.
 
 ##### Trademark Information: #####
 All product names, company names, and trademarks referenced in this repository are trademarks or registered trademarks of their respective owners. There is no affiliation between the mentioned trademarks or their owners and Indi.An GmbH. Any mention of trademarks is solely for reference purposes regarding usage and application.
