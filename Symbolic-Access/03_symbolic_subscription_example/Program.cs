@@ -77,7 +77,7 @@ internal class Program
                     subscription.VariableChange += Subscription_VariableChange;
 
                     RegisterSubscriptionResult registerSubscriptionResult = mySymbolicDevice.RegisterSubscription(new RegisterSubscriptionRequest(subscription));
-                    if (createSubResult.Quality == OperationResult.eQuality.GOOD)
+                    if (registerSubscriptionResult.Quality == OperationResult.eQuality.GOOD)
                     {
                         Console.WriteLine($"Subscription {subscription.SubscriptionName} registered!");
                     }
