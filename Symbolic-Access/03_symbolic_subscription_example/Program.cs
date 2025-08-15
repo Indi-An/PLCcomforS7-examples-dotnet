@@ -25,7 +25,7 @@ internal class Program
 
             //create a device object for the modern tls access (TIA Version 17 or higher)
             //Note, you can pass user and/or password information with the constuctor new Tls13Device("192.168.1.100", "user", "password");
-            Tls13Device mySymbolicDevice = new Tls13Device("192.168.1.100");
+            SymbolicDevice mySymbolicDevice = new Tls13Device("192.168.1.100");
             //or if you want to use the legacy access for older TIA or firmware versions
             //LegacySymbolicDevice mySymbolicDevice = new LegacySymbolicDevice("192.168.1.100");
 
@@ -83,7 +83,7 @@ internal class Program
                     }
                     else
                     {
-                        Console.WriteLine($"Error while register subscription! Message: {createSubResult.Message}");
+                        Console.WriteLine($"Error while register subscription! Message: {registerSubscriptionResult.Message}");
                     }
 
                     Console.WriteLine("Please enter any key for exit!");
