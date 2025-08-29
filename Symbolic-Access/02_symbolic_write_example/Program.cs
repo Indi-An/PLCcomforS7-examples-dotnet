@@ -42,7 +42,7 @@ internal class Program
          * determined it by a read operation or you have PLCCom output the empty
          * variable (without values)
          */
-        var variableBody = GetEmptyVariableBody(mySymbolicDevice, "DataBlock_1.ByteValue");
+        var variableBody = mySymbolicDevice.GetEmptyVariableBody("DataBlock_1.ByteValue");
         // Set the value and add the variable to the write list
         if (variableBody != null)
         {
@@ -50,7 +50,7 @@ internal class Program
             writeVariables.Add(variableBody);
         }
 
-        variableBody = GetEmptyVariableBody(mySymbolicDevice, "DataBlock_1.RealValue");
+        variableBody = mySymbolicDevice.GetEmptyVariableBody("DataBlock_1.RealValue");
         // Set the value and add the variable to the write list
         if (variableBody != null)
         {
@@ -58,7 +58,7 @@ internal class Program
             writeVariables.Add(variableBody);
         }
 
-        variableBody = GetEmptyVariableBody(mySymbolicDevice, "DataBlock_1.SIntValue");
+        variableBody = mySymbolicDevice.GetEmptyVariableBody("DataBlock_1.SIntValue");
         // Set the value and add the variable to the write list
         if (variableBody != null)
         {
@@ -66,7 +66,7 @@ internal class Program
             writeVariables.Add(variableBody);
         }
 
-        variableBody = GetEmptyVariableBody(mySymbolicDevice, "DataBlock_1.UDIntValue");
+        variableBody = mySymbolicDevice.GetEmptyVariableBody("DataBlock_1.UDIntValue");
         // Set the value and add the variable to the write list
         if (variableBody != null)
         {
@@ -118,18 +118,5 @@ internal class Program
         Console.WriteLine($"Import Project {e}% done");
     }
 
-    private PlcCoreVariable GetEmptyVariableBody(Tls13Device tlsDevice, string fullVariableName)
-    {
-        try
-        {
-            return tlsDevice.GetEmptyVariableBody(fullVariableName);
-        }
-        catch (KeyNotFoundException)
-        {
-            Console.WriteLine($"cannot found variable {fullVariableName}");
-            return null; // return null if error occur
-        }
-
-    }
 }
 

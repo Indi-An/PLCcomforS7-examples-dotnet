@@ -258,6 +258,12 @@ namespace PLCCom_Full_Test_App.Classic
                             byte.Parse(txtBit.Text),             // Bit (for bit operations)
                             Encoding.GetEncoding((string)cmbCodepage.SelectedItem)); // Encoding for string operations
 
+                        //allow writing multliple bits 
+                        //Important hint: If multiple bits are present, this WriteRequest can not be processed optimally.
+                        //All bits are written one after the other.
+                        //It is better and more efficient if a separate WriteRequest is used for each bit.
+                        myWriteRequest.AllowMultipleBits = true;
+
                         // Add writable data to request
                         foreach (object writevalue in vtw.values)
                         {

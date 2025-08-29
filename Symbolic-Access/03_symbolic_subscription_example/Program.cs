@@ -4,6 +4,7 @@ using PLCcom.Core.S7Plus.Subscription;
 using PLCcom.Core.S7Plus.Variables;
 using PLCcom.Requests.S7Plus;
 using PLCcom.Results.S7Plus;
+using System.Collections;
 
 internal class Program
 {
@@ -129,23 +130,79 @@ internal class Program
         }
     }
 
-    private void Subscription_VariableChange(object sender, SubscriptionChangeVariableValueEventArgs e)
-    {
-        PlcSubscription? subscription = sender as PlcSubscription;
-        if (subscription != null)
-        {
-            Console.WriteLine($"Incoming variable change notification for subscription: {subscription.SubscriptionName}");
-            foreach (var variable in e.Variables)
-            {
-                Console.WriteLine($"Variable: {variable.VariableDetails.FullVariableName} Value: {variable.Value}");
-            }
-        }
-    }
-
     private void SymbolicDevice_OnProjectImportProgressChanged(object? sender, int e)
     {
         // Print project import progress
         Console.WriteLine($"Import Project {e}% done");
+    }
+
+    private void Subscription_VariableChange(object sender, SubscriptionChangeVariableValueEventArgs e)
+    {
+        if (sender is PlcSubscription subscription)
+        {
+            Console.WriteLine($"Incoming variable change notification for subscription: {subscription.SubscriptionName}");
+            foreach (var variable in e.Variables)
+            {
+                HandleVariable(variable); // recursively traverse
+            }
+        }
+    }
+
+    /// <summary>
+    /// Recursively processes a variable.
+    /// If it is a struct, all children will be traversed.
+    /// If it is a leaf variable, its value will be printed.
+    /// </summary>
+    /// <param name="variable">The PLC variable to handle.</param>
+    private void HandleVariable(PlcCoreVariable variable)
+    {
+        if (variable == null) return;
+
+        // Check if variable is a struct and cast to PlcStructure if true
+        if (variable.VariableDetails.IsStruct)
+        {
+            var structVar = (PlcStructure)variable;
+            foreach (var child in structVar.GetAllChilds())
+            {
+                HandleVariable(child); // recursion for children
+            }
+        }
+        else
+        {
+            string valueStr = ValueToString(variable.Value);
+            Console.WriteLine($"Variable: {variable.VariableDetails.FullVariableName} Value: {valueStr}");
+        }
+    }
+
+    /// <summary>
+    /// Converts any value into a string representation.
+    /// Supports arrays, collections (including nested), and null values.
+    /// Strings are handled separately to avoid being treated as IEnumerable of chars.
+    /// </summary>
+    /// <param name="value">The value object to convert.</param>
+    /// <returns>
+    /// A string representation of the given value.  
+    /// Arrays and collections will be expanded, nested structures will be formatted recursively,  
+    /// and null will return the string "null".
+    /// </returns>
+    private string ValueToString(object? value)
+    {
+        if (value == null)
+            return "null";
+
+        // Handle string separately (because string is IEnumerable<char>)
+        if (value is string s)
+            return s;
+
+        // Handle arrays and collections (including nested ones)
+        if (value is IEnumerable enumerable && value is not IDictionary)
+        {
+            var items = enumerable.Cast<object?>().Select(ValueToString);
+            return "[ " + string.Join(", ", items) + " ]";
+        }
+
+        // Fallback: use ToString()
+        return value.ToString() ?? "null";
     }
 }
 

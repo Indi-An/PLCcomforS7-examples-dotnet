@@ -1,5 +1,4 @@
-﻿using Org.BouncyCastle.Asn1.Ocsp;
-using PLCcom;
+﻿using PLCcom;
 using PLCcom.Core.S7Plus;
 using PLCcom.Core.S7Plus.AddressSpace;
 using PLCcom.Requests.S7Plus;
@@ -27,10 +26,7 @@ namespace PLCCom_Full_Test_App.Symbolic
         public ReadWriteSymbolic(SymbolicDevice device)
         {
             // Load localized UI resources from assembly
-            resources = new System.Resources.ResourceManager(
-                this.GetType().Assembly.GetName().Name + ".Properties.Resources",
-                this.GetType().Assembly
-            );
+            resources = new System.Resources.ResourceManager("PLCCom_Full_Test_App.Properties.Resources", this.GetType().Assembly);
 
             InitializeComponent();
             this._device = device;
@@ -132,6 +128,7 @@ namespace PLCCom_Full_Test_App.Symbolic
                             tn.Nodes.Add(new TreeNode("Load…"));
                         return tn;
                     }).ToArray();
+
 
                     // Add all new child nodes in a single update block for performance
                     treePlcInventory.BeginUpdate();
@@ -262,6 +259,8 @@ namespace PLCCom_Full_Test_App.Symbolic
                 picNotIsReadable.Visible = !details.IsReadable;
                 picIsWritable.Visible = details.IsWritable;
                 picNotIsWritable.Visible = !details.IsWritable;
+                picIsSubscribable.Visible = details.IsSubscribable;
+                picNotIsSubscribable.Visible = !details.IsSubscribable;
 
                 picIsArray.Visible = details.IsArray;
                 picNotIsArray.Visible = !details.IsArray;
@@ -315,7 +314,11 @@ namespace PLCCom_Full_Test_App.Symbolic
             var res = _device.ReadData(req) as ReadSymbolicResultSet;
 
             // Update UI with value and quality
-            txtValue.Text = res.Variables[0].ValueAsJson.ToString();
+            if (res.IsQualityGoodOrWarning())
+                txtValue.Text = res.Variables[0].ValueAsJson.ToString();
+            else
+                txtValue.Text =string.Empty;
+
             txtQuality.Text = res.Quality.ToString();
             txtMessage.Text = res.Message;
 

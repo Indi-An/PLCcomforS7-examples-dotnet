@@ -30,6 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReadWriteSymbolic));
             grpAddress = new System.Windows.Forms.GroupBox();
+            picNotIsSubscribable = new System.Windows.Forms.PictureBox();
+            picIsSubscribable = new System.Windows.Forms.PictureBox();
+            lblIsSubscribable = new System.Windows.Forms.Label();
             picNotIsStruct = new System.Windows.Forms.PictureBox();
             picIsStruct = new System.Windows.Forms.PictureBox();
             picNotIsArray = new System.Windows.Forms.PictureBox();
@@ -69,6 +72,8 @@
             panel1 = new System.Windows.Forms.Panel();
             pictureBox1 = new System.Windows.Forms.PictureBox();
             grpAddress.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picNotIsSubscribable).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picIsSubscribable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picNotIsStruct).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picIsStruct).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picNotIsArray).BeginInit();
@@ -86,6 +91,9 @@
             // 
             // grpAddress
             // 
+            grpAddress.Controls.Add(picNotIsSubscribable);
+            grpAddress.Controls.Add(picIsSubscribable);
+            grpAddress.Controls.Add(lblIsSubscribable);
             grpAddress.Controls.Add(picNotIsStruct);
             grpAddress.Controls.Add(picIsStruct);
             grpAddress.Controls.Add(picNotIsArray);
@@ -117,11 +125,40 @@
             grpAddress.TabStop = false;
             grpAddress.Text = "request";
             // 
+            // picNotIsSubscribable
+            // 
+            picNotIsSubscribable.Image = (System.Drawing.Image)resources.GetObject("picNotIsSubscribable.Image");
+            picNotIsSubscribable.InitialImage = null;
+            picNotIsSubscribable.Location = new System.Drawing.Point(817, 317);
+            picNotIsSubscribable.Name = "picNotIsSubscribable";
+            picNotIsSubscribable.Size = new System.Drawing.Size(24, 26);
+            picNotIsSubscribable.TabIndex = 152;
+            picNotIsSubscribable.TabStop = false;
+            // 
+            // picIsSubscribable
+            // 
+            picIsSubscribable.Image = (System.Drawing.Image)resources.GetObject("picIsSubscribable.Image");
+            picIsSubscribable.InitialImage = null;
+            picIsSubscribable.Location = new System.Drawing.Point(817, 317);
+            picIsSubscribable.Name = "picIsSubscribable";
+            picIsSubscribable.Size = new System.Drawing.Size(24, 26);
+            picIsSubscribable.TabIndex = 155;
+            picIsSubscribable.TabStop = false;
+            // 
+            // lblIsSubscribable
+            // 
+            lblIsSubscribable.AutoSize = true;
+            lblIsSubscribable.Location = new System.Drawing.Point(738, 322);
+            lblIsSubscribable.Name = "lblIsSubscribable";
+            lblIsSubscribable.Size = new System.Drawing.Size(76, 13);
+            lblIsSubscribable.TabIndex = 154;
+            lblIsSubscribable.Text = "IsSubscribable";
+            // 
             // picNotIsStruct
             // 
             picNotIsStruct.Image = (System.Drawing.Image)resources.GetObject("picNotIsStruct.Image");
             picNotIsStruct.InitialImage = null;
-            picNotIsStruct.Location = new System.Drawing.Point(817, 346);
+            picNotIsStruct.Location = new System.Drawing.Point(817, 380);
             picNotIsStruct.Name = "picNotIsStruct";
             picNotIsStruct.Size = new System.Drawing.Size(24, 26);
             picNotIsStruct.TabIndex = 153;
@@ -131,7 +168,7 @@
             // 
             picIsStruct.Image = (System.Drawing.Image)resources.GetObject("picIsStruct.Image");
             picIsStruct.InitialImage = null;
-            picIsStruct.Location = new System.Drawing.Point(817, 346);
+            picIsStruct.Location = new System.Drawing.Point(817, 380);
             picIsStruct.Name = "picIsStruct";
             picIsStruct.Size = new System.Drawing.Size(24, 26);
             picIsStruct.TabIndex = 152;
@@ -141,7 +178,7 @@
             // 
             picNotIsArray.Image = (System.Drawing.Image)resources.GetObject("picNotIsArray.Image");
             picNotIsArray.InitialImage = null;
-            picNotIsArray.Location = new System.Drawing.Point(817, 316);
+            picNotIsArray.Location = new System.Drawing.Point(817, 350);
             picNotIsArray.Name = "picNotIsArray";
             picNotIsArray.Size = new System.Drawing.Size(24, 26);
             picNotIsArray.TabIndex = 151;
@@ -151,7 +188,7 @@
             // 
             picIsArray.Image = (System.Drawing.Image)resources.GetObject("picIsArray.Image");
             picIsArray.InitialImage = null;
-            picIsArray.Location = new System.Drawing.Point(817, 316);
+            picIsArray.Location = new System.Drawing.Point(817, 350);
             picIsArray.Name = "picIsArray";
             picIsArray.Size = new System.Drawing.Size(24, 26);
             picIsArray.TabIndex = 150;
@@ -160,7 +197,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(745, 353);
+            label4.Location = new System.Drawing.Point(738, 387);
             label4.Name = "label4";
             label4.Size = new System.Drawing.Size(43, 13);
             label4.TabIndex = 149;
@@ -169,7 +206,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(745, 323);
+            label5.Location = new System.Drawing.Point(738, 357);
             label5.Name = "label5";
             label5.Size = new System.Drawing.Size(39, 13);
             label5.TabIndex = 147;
@@ -177,7 +214,7 @@
             // 
             // btnWrite
             // 
-            btnWrite.Location = new System.Drawing.Point(762, 410);
+            btnWrite.Location = new System.Drawing.Point(747, 435);
             btnWrite.Name = "btnWrite";
             btnWrite.Size = new System.Drawing.Size(94, 23);
             btnWrite.TabIndex = 145;
@@ -227,7 +264,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(745, 292);
+            label2.Location = new System.Drawing.Point(738, 292);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(54, 13);
             label2.TabIndex = 140;
@@ -256,7 +293,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(745, 262);
+            label1.Location = new System.Drawing.Point(738, 262);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(61, 13);
             label1.TabIndex = 137;
@@ -406,7 +443,7 @@
             lblDeviceType.Margin = new System.Windows.Forms.Padding(2, 3, 2, 2);
             lblDeviceType.Name = "lblDeviceType";
             lblDeviceType.Overflow = System.Windows.Forms.ToolStripItemOverflow.Always;
-            lblDeviceType.Size = new System.Drawing.Size(76, 17);
+            lblDeviceType.Size = new System.Drawing.Size(77, 17);
             lblDeviceType.Text = "DeviceType: ";
             // 
             // lblDeviceGUID
@@ -520,6 +557,8 @@
             Load += ReadWriteSymbolic_Load;
             grpAddress.ResumeLayout(false);
             grpAddress.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picNotIsSubscribable).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picIsSubscribable).EndInit();
             ((System.ComponentModel.ISupportInitialize)picNotIsStruct).EndInit();
             ((System.ComponentModel.ISupportInitialize)picIsStruct).EndInit();
             ((System.ComponentModel.ISupportInitialize)picNotIsArray).EndInit();
@@ -581,5 +620,8 @@
         private System.Windows.Forms.PictureBox picIsStruct;
         private System.Windows.Forms.PictureBox picNotIsArray;
         private System.Windows.Forms.PictureBox picIsArray;
+        internal System.Windows.Forms.Label lblIsSubscribable;
+        private System.Windows.Forms.PictureBox picNotIsSubscribable;
+        private System.Windows.Forms.PictureBox picIsSubscribable;
     }
 }
