@@ -16,7 +16,6 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFrameworks>net48;net9.0-windows</TargetFrameworks>
 		<UseWindowsForms>true</UseWindowsForms>
-		<UseWinFormsOutOfProcDesigner>True</UseWinFormsOutOfProcDesigner>
 		
 		<AssemblyName>PLCCom_Full_Test_App</AssemblyName>
 		<RootNamespace>PLCCom_Full_Test_App</RootNamespace>
@@ -27,7 +26,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="PLCcomForS7" Version="15.6.*" />
+		<PackageReference Include="PLCcomForS7" Version="16.0.0-beta3" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
 		<PackageReference Include="System.Drawing.Common" Version="9.0.8" />
 		

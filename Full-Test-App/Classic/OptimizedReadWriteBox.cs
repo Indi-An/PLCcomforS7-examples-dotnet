@@ -441,7 +441,7 @@ namespace PLCCom_Full_Test_App.Classic
         /// </summary>
         private void OptimizedReadWriteBox_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Main.CountOpenDialogs--;
+            MainForm.CountOpenDialogs--;
         }
 
         /// <summary>

@@ -421,7 +421,7 @@ namespace PLCCom_Full_Test_App.Classic
         private void DataServerFunctions_FormClosing(object sender, FormClosingEventArgs e)
         {
             myDataServer.StopServer();
-            Main.CountOpenDialogs--;
+            MainForm.CountOpenDialogs--;
         }
 
         /// <summary>

@@ -214,11 +214,14 @@
             // 
             // btnWrite
             // 
-            btnWrite.Location = new System.Drawing.Point(747, 435);
+            btnWrite.Image = (System.Drawing.Image)resources.GetObject("btnWrite.Image");
+            btnWrite.Location = new System.Drawing.Point(781, 502);
             btnWrite.Name = "btnWrite";
-            btnWrite.Size = new System.Drawing.Size(94, 23);
+            btnWrite.Size = new System.Drawing.Size(60, 61);
             btnWrite.TabIndex = 145;
-            btnWrite.Text = "write";
+            btnWrite.Text = "Write";
+            btnWrite.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            btnWrite.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             btnWrite.UseVisualStyleBackColor = true;
             btnWrite.Click += btnWrite_Click;
             // 
@@ -337,6 +340,7 @@
             txtValue.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             txtValue.Size = new System.Drawing.Size(630, 173);
             txtValue.TabIndex = 127;
+            txtValue.WordWrap = false;
             // 
             // lblDatatype
             // 
@@ -382,6 +386,7 @@
             treePlcInventory.Name = "treePlcInventory";
             treePlcInventory.Size = new System.Drawing.Size(826, 216);
             treePlcInventory.TabIndex = 122;
+            treePlcInventory.BeforeSelect += treePlcInventory_BeforeSelect;
             treePlcInventory.AfterSelect += treePlcInventory_AfterSelect;
             // 
             // pictureBox2
@@ -461,7 +466,6 @@
             // 
             lvLog.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] { columnHeader1 });
             lvLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-            lvLog.HideSelection = false;
             lvLog.Location = new System.Drawing.Point(112, 664);
             lvLog.Name = "lvLog";
             lvLog.Size = new System.Drawing.Size(742, 101);

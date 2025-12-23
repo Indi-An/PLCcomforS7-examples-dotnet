@@ -45,6 +45,9 @@ namespace PLCCom_Full_Test_App.Symbolic
         {
             try
             {
+
+                this.Text = $"ReadWriteSymbolic PLCcom for S7 Version {typeof(PLCcom.BasicInfoResult).Assembly.GetName().Version?.ToString()}";
+
                 // Display device GUID and type in the UI
                 lblDeviceGUID.Text = "Device Guid: " + _device.DeviceGuid.ToString();
                 lblDeviceType.Text = "DeviceType: " + _device.GetType().ToString();
@@ -232,7 +235,7 @@ namespace PLCCom_Full_Test_App.Symbolic
         /// </summary>
         private void ReadWriteSymbolic_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Main.CountOpenDialogs--;
+            MainForm.CountOpenDialogs--;
         }
 
         /// <summary>
@@ -240,8 +243,9 @@ namespace PLCCom_Full_Test_App.Symbolic
         /// </summary>
         private void treePlcInventory_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             try
-            {
+            {           
                 // Cast the Tag property to AddressNode, clear fields if null
                 if (!(e.Node.Tag is AddressNode selectedNode))
                 {
@@ -280,6 +284,10 @@ namespace PLCCom_Full_Test_App.Symbolic
             {
                 MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
         }
 
         /// <summary>
@@ -315,11 +323,15 @@ namespace PLCCom_Full_Test_App.Symbolic
 
             // Update UI with value and quality
             if (res.IsQualityGoodOrWarning())
+            {
                 txtValue.Text = res.Variables[0].ValueAsJson.ToString();
+            }
             else
-                txtValue.Text =string.Empty;
+                txtValue.Text = string.Empty;
 
             txtQuality.Text = res.Quality.ToString();
+            txtQuality.Text = $"{DateTime.Now:HH:mm:ss} - {res.Quality.ToString()}";
+
             txtMessage.Text = res.Message;
 
             // Set background color based on quality
@@ -350,9 +362,10 @@ namespace PLCCom_Full_Test_App.Symbolic
         /// </summary>
         private void WriteValue()
         {
+            this.Cursor = Cursors.WaitCursor;
             try
             {
-                var variableBody = _device.GetEmptyVariableBody(txtFullVariableName.Text);
+                var variableBody = _device.GetEmptyVariableBody(txtFullVariableName.Text).Clone();
 
                 if (variableBody == null)
                     throw new ArgumentNullException("Cannot found variable for writing");
@@ -366,7 +379,7 @@ namespace PLCCom_Full_Test_App.Symbolic
                 // If the write operation is good or partially good, update UI with detailed result
                 if (writeResult.IsQualityGoodOrWarning())
                 {
-                    txtQuality.Text = writeResult.WriteOperationResults[0].Quality.ToString();
+                    txtQuality.Text = $"{DateTime.Now:HH:mm:ss} - {writeResult.WriteOperationResults[0].Quality.ToString()}";
                     txtMessage.Text = writeResult.WriteOperationResults[0].Message;
 
                     switch (writeResult.WriteOperationResults[0].Quality)
@@ -385,7 +398,7 @@ namespace PLCCom_Full_Test_App.Symbolic
                 else
                 {
                     // Otherwise display the overall write quality and message
-                    txtQuality.Text = writeResult.Quality.ToString();
+                    txtQuality.Text = $"{DateTime.Now:HH:mm:ss} - {writeResult.Quality.ToString()}";
                     txtMessage.Text = writeResult.Message;
 
                     switch (writeResult.Quality)
@@ -406,6 +419,17 @@ namespace PLCCom_Full_Test_App.Symbolic
             {
                 MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
         }
+
+        private void treePlcInventory_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            if (e.Action == TreeViewAction.Unknown)
+                e.Cancel = true;
+        }
+
     }
 }

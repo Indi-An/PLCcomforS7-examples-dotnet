@@ -275,7 +275,7 @@ namespace PLCCom_Full_Test_App.Symbolic
         /// </summary>
         private void AlarmFunctions_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Main.CountOpenDialogs--;
+            MainForm.CountOpenDialogs--;
         }
 
         /// <summary>
