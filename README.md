@@ -34,7 +34,8 @@ For a full list of supported features, detailed descriptions, and compatibility 
 - .NET 7.0
 - .NET 8.0
 - .NET 9.0
-- Visual Studio 2019 or newer (recommended VS2022)
+- .NET 10.0
+- Visual Studio 2019 or newer (recommended VS2022or VS2026)
 
 ## Important Licensing Information
 
