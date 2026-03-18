@@ -77,8 +77,8 @@ Without an appropriate license, PLCcom falls back to `RequestedOnly` and child m
 
 ## 🔧 Common prerequisites for all examples
 
-1. Enter license credentials (optional)
-   - Without credentials the runtime is limited to **10 minutes**.
+1. Enter license credentials
+   - For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/de/plccom/for-s7/fuers7-download/)
 2. Configure the PLC IP address
    - examples typically use `192.168.1.100`
 3. Choose the correct device type
