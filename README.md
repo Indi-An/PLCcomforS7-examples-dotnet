@@ -46,7 +46,7 @@ For a full list of supported features, detailed descriptions, and compatibility 
 - **PLCcom for S7** itself is proprietary software and is **NOT** included under the MIT license. To use the PLCcom library in your own projects, you must acquire an appropriate license and accept the EULA for the PLCcom for S7 library. More information about purchasing a license can be found [here](https://www.indi-an.com/en/plccom/for-s7/fors7-overview/).
 
 **Test License:**
-- For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/de/plccom/for-s7/fuers7-download/).
+- For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/en/plccom/for-s7/fors7-overview/).
 
 ## Getting Started
 

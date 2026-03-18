@@ -29,7 +29,7 @@ If AUTO is selected without an appropriate license, the operation may fail (depe
 2. Enter your license credentials:
    - `authentication.User`
    - `authentication.Serial`
-   - For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/de/plccom/for-s7/fuers7-download/)
+   - For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/en/plccom/for-s7/fors7-overview/)
 3. Set the PLC IP address
 4. Ensure PUT/GET is enabled (depending on PLC model / security settings)
 5. Run the program and compare behavior/performance with and without optimization

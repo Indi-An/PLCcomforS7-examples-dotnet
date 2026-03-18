@@ -46,7 +46,7 @@ This example is available **only with an Expert license**.
 ## 🔧 Common prerequisites for all examples
 
 1. Enter license credentials
-   - For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/de/plccom/for-s7/fuers7-download/).
+   - For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/en/plccom/for-s7/fors7-overview/).
 2. Configure the PLC connection
    - set PLC IP address
    - rack/slot if applicable (depending on PLC model and your device configuration)

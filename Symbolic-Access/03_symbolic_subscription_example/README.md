@@ -23,7 +23,7 @@ It shows:
 2. Enter your license credentials:
    - `authentication.User`
    - `authentication.Serial`
-   - For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/de/plccom/for-s7/fuers7-download/)
+   - For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/en/plccom/for-s7/fors7-overview/)
 3. Set the PLC IP address
 4. Ensure the target variables exist in your PLC project
 5. Run the program and observe value updates
