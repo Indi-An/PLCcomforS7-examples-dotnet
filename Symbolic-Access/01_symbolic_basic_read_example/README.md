@@ -15,9 +15,10 @@ It demonstrates:
 ## How to run
 
 1. Open `Program.cs`
-2. Enter your license credentials (optional):
+2. Enter your license credentials:
    - `authentication.User`
    - `authentication.Serial`
+   - For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/de/plccom/for-s7/fuers7-download/)
 3. Set your PLC IP address
 4. Run the program
 
