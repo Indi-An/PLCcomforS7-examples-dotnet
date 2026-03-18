@@ -32,6 +32,11 @@ It only changes what the result may expose via Get/TryGet and internal indexing.
 
 ---
 
+## Test License:
+For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/de/plccom/for-s7/fuers7-download/).
+
+---
+
 ## How to run
 
 1. Open `Program.cs`
