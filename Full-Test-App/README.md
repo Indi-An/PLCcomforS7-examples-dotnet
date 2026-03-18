@@ -38,9 +38,8 @@ Depending on the current implementation, the app can include modules such as:
 ---
 
 ## License note
+- For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/de/plccom/for-s7/fuers7-download/).
 
-Without license credentials, the runtime is limited to **10 minutes**.
-Enter your license credentials to remove the time limit.
 
 ---
 
