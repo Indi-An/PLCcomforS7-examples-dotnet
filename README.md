@@ -35,7 +35,7 @@ For a full list of supported features, detailed descriptions, and compatibility 
 - .NET 8.0
 - .NET 9.0
 - .NET 10.0
-- Visual Studio 2019 or newer (recommended VS2022or VS2026)
+- Visual Studio 2019 or newer (recommended VS2022 or VS2026)
 
 ## Important Licensing Information
 
@@ -46,7 +46,7 @@ For a full list of supported features, detailed descriptions, and compatibility 
 - **PLCcom for S7** itself is proprietary software and is **NOT** included under the MIT license. To use the PLCcom library in your own projects, you must acquire an appropriate license and accept the EULA for the PLCcom for S7 library. More information about purchasing a license can be found [here](https://www.indi-an.com/en/plccom/for-s7/fors7-overview/).
 
 **Test License:**
-- For execution, a test license is required. Without license information, the library will work for 10 minutes. If a longer test period is desired, users can request an extended test license by sending a brief email to [sales@indi-an.com](mailto:sales@indi-an.com).
+- For execution, a (test) license is required. Users can request a trial license themselves via the PLCcom for S7 [download website](https://www.indi-an.com/de/plccom/for-s7/fuers7-download/).
 
 ## Getting Started
 
