@@ -1,6 +1,6 @@
 # PLCcom for S7 - Quick Start Examples
 
-![PLCcom Logo](https://www.indi-an.com//wp-content/uploads/2023/10/indi.logo2021.1_rgb_PLCcom_300.png)
+<img src="https://www.indi-an.com//wp-content/uploads/2026/03/PLCcom_720.png" width="200" alt="PLCcom Logo">
 
 This repository provides quick-start examples for developers using the **PLCcom for S7** library. These examples demonstrate how easy it is to integrate PLCcom into your .NET applications, enabling seamless communication with Siemens S7 PLCs.
 
