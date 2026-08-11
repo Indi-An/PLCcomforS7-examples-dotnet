@@ -42,7 +42,10 @@ internal static class Program
 
         try
         {
-            // License/authentication: user must provide correct values.
+            // Enter your Username + Serial here! Please note: with blank fields the library runs
+            // for 15 minutes during a debug session. Both values can also come
+            // from configuration or an environment variable.
+            // Free trial license (14 days, uninterrupted): https://www.indi-an.com/en/plccom/for-s7/fors7-download/
             authentication.User = "";
             authentication.Serial = "";
 

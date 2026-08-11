@@ -20,7 +20,10 @@ internal class Program
         {
 
             // Important !!!!!!!!!!!!!!!!!!
-            // Enter your Username + Serial here! Please note: Without a license key (empty fields), the runtime is limited to 10 minutes
+            // Enter your Username + Serial here! Please note: with blank fields the library runs
+            // for 15 minutes during a debug session. Both values can also come
+            // from configuration or an environment variable.
+            // Free trial license (14 days, uninterrupted): https://www.indi-an.com/en/plccom/for-s7/fors7-download/
             authentication.User = ""; //Please enter your user name
             authentication.Serial = ""; // Please enter your user serial key
 

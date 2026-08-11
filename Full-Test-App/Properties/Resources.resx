@@ -634,7 +634,7 @@ Due to not included database provider this example just shows filesystem and SQL
     <value>Message</value>
   </data>
   <data name="MessageText" xml:space="preserve">
-    <value>Messsage: </value>
+    <value>Message: </value>
   </data>
   <data name="Message_ReadCollection" xml:space="preserve">
     <value>before you could use the 'Read Collection' option, you have to configure the marked region (Edit Collection) code-area!</value>
