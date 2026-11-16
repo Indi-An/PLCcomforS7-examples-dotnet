@@ -11,7 +11,7 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="PLCcomForS7" Version="16.8.*" />
+		<PackageReference Include="PLCcomForS7" Version="17.1.*" />
 	</ItemGroup>
 
 </Project>

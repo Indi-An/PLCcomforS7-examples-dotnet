@@ -35,6 +35,7 @@ For a full list of supported features, detailed descriptions, and compatibility 
 - .NET 8.0
 - .NET 9.0
 - .NET 10.0
+- .NET 11.0
 - Visual Studio 2019 or newer (recommended VS2022 or VS2026)
 
 ## Important Licensing Information
@@ -56,6 +57,8 @@ For a full list of supported features, detailed descriptions, and compatibility 
 ```bash
 Install-Package PLCcomForS7
 ```
+
+The examples reference **PLCcom for S7 version 17** (`17.1.*`). Version 17 requires a license key for version 17.
 
 ## ⚠️ Important Safety Notice
 

@@ -7,7 +7,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="PLCcomForS7" Version="16.8.*" />
+		<PackageReference Include="PLCcomForS7" Version="17.1.*" />
 	</ItemGroup>
 
 	<Choose>
@@ -18,7 +18,7 @@
 		</When>
 		<Otherwise>
 			<ItemGroup>
-				<PackageReference Include="System.IO.Ports" Version="10.0.10" />
+				<PackageReference Include="System.IO.Ports" Version="10.0.15" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
